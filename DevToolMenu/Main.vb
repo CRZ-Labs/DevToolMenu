@@ -7,57 +7,92 @@
         Notifyer.BalloonTipTitle = "Has started!"
         Notifyer.BalloonTipText = "Welcome, " & Environment.UserName
         Notifyer.Text = My.Application.Info.AssemblyName
+        LoadDB()
+    End Sub
+
+    Private Sub Main_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        SaveDB()
     End Sub
 
     Private Sub tc_btn_Directory_Apply_Click(sender As Object, e As EventArgs) Handles tc_btn_Directory_Apply.Click
-        If CheckBox9.CheckState = CheckState.Checked Then
-            Create_OpenIn()
-            If CheckBox1.CheckState = CheckState.Checked Then
-                Create_OpenIn(1)
+        If cb_InsideAFolder_Dir_OpenIn.CheckState = CheckState.Checked Then
+            InsideFolder_DirCreate_OpenIn()
+            If cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.CheckState = CheckState.Checked Then
+                InsideFolder_DirCreate_OpenIn(1)
             End If
-            If CheckBox2.CheckState = CheckState.Checked Then
-                Create_OpenIn(2)
+            If cb_InsideAFolder_Dir_OpenIn_InANewFolder.CheckState = CheckState.Checked Then
+                InsideFolder_DirCreate_OpenIn(2)
             End If
-            If CheckBox3.CheckState = CheckState.Checked Then
-                Create_OpenIn(3)
+            If cb_InsideAFolder_Dir_OpenIn_InPowerShell.CheckState = CheckState.Checked Then
+                InsideFolder_DirCreate_OpenIn(3)
             End If
-        End If
-    End Sub
-
-    Private Sub CheckBox5_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox5.CheckedChanged
-        If CheckBox5.CheckState = CheckState.Checked Then
-            CheckBox6.Enabled = True
-            CheckBox7.Enabled = True
         Else
-            CheckBox6.Enabled = False
-            CheckBox7.Enabled = False
+            InsideFolder_Dir_OpenIn = False
+        End If
+        If cb_SelectAFolder_Dir_OpenIn.CheckState = CheckState.Checked Then
+            SelectFolder_DirCreate_OpenIn()
+            If cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.CheckState = CheckState.Checked Then
+                SelectFolder_DirCreate_OpenIn(1)
+            End If
+            If cb_SelectAFolder_Dir_OpenIn_InANewFolder.CheckState = CheckState.Checked Then
+                SelectFolder_DirCreate_OpenIn(2)
+            End If
+            If cb_SelectAFolder_Dir_OpenIn_InPowerShell.CheckState = CheckState.Checked Then
+                SelectFolder_DirCreate_OpenIn(3)
+            End If
+        Else
+            SelectFolder_Dir_OpenIn = False
         End If
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        If CheckBox4.CheckState = CheckState.Checked Then
+    Private Sub CheckBox5_CheckedChanged(sender As Object, e As EventArgs) Handles cbFile_OpenWith.CheckedChanged
+        If cbFile_OpenWith.CheckState = CheckState.Checked Then
+            cbFile_OpenWith_Notepad.Enabled = True
+            cbFile_OpenWith_Other.Enabled = True
+        Else
+            cbFile_OpenWith_Notepad.Enabled = False
+            cbFile_OpenWith_Other.Enabled = False
+        End If
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles tc_btn_File_Apply.Click
+        If cbFile_GetLocation.CheckState = CheckState.Checked Then
             Create_GetLocation()
         End If
 
-        If CheckBox5.CheckState = CheckState.Checked Then
+        If cbFile_OpenWith.CheckState = CheckState.Checked Then
             Create_OpenWith() 'Crear menu principal
-            If CheckBox6.CheckState = CheckState.Checked Then
+            If cbFile_OpenWith_Notepad.CheckState = CheckState.Checked Then
                 Create_OpenWith(1) 'Crear menu en la cascada principal
             End If
         End If
     End Sub
 
-    Private Sub CheckBox9_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox9.CheckedChanged
-        If CheckBox9.CheckState = CheckState.Checked Then
-            CheckBox1.Enabled = True
-            CheckBox2.Enabled = True
-            CheckBox3.Enabled = True
-            CheckBox8.Enabled = True
+    Private Sub cb_InsideAFolder_Dir_OpenIn_CheckedChanged(sender As Object, e As EventArgs) Handles cb_InsideAFolder_Dir_OpenIn.CheckedChanged
+        If cb_InsideAFolder_Dir_OpenIn.CheckState = CheckState.Checked Then
+            cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.Enabled = True
+            cb_InsideAFolder_Dir_OpenIn_InANewFolder.Enabled = True
+            cb_InsideAFolder_Dir_OpenIn_InPowerShell.Enabled = True
+            cb_InsideAFolder_Dir_OpenIn_InOther.Enabled = True
         Else
-            CheckBox1.Enabled = False
-            CheckBox2.Enabled = False
-            CheckBox3.Enabled = False
-            CheckBox8.Enabled = False
+            cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.Enabled = False
+            cb_InsideAFolder_Dir_OpenIn_InANewFolder.Enabled = False
+            cb_InsideAFolder_Dir_OpenIn_InPowerShell.Enabled = False
+            cb_InsideAFolder_Dir_OpenIn_InOther.Enabled = False
+        End If
+    End Sub
+
+    Private Sub cb_SelectAFolder_Dir_OpenIn_CheckedChanged(sender As Object, e As EventArgs) Handles cb_SelectAFolder_Dir_OpenIn.CheckedChanged
+        If cb_SelectAFolder_Dir_OpenIn.CheckState = CheckState.Checked Then
+            cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.Enabled = True
+            cb_SelectAFolder_Dir_OpenIn_InANewFolder.Enabled = True
+            cb_SelectAFolder_Dir_OpenIn_InPowerShell.Enabled = True
+            cb_SelectAFolder_Dir_OpenIn_InOther.Enabled = True
+        Else
+            cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.Enabled = False
+            cb_SelectAFolder_Dir_OpenIn_InANewFolder.Enabled = False
+            cb_SelectAFolder_Dir_OpenIn_InPowerShell.Enabled = False
+            cb_SelectAFolder_Dir_OpenIn_InOther.Enabled = False
         End If
     End Sub
 End Class
