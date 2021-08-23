@@ -31,6 +31,7 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta1)
                     RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta1, True)
                 End If
+                RegeditWriter1.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String)
                 RegeditWriter1.SetValue("MUIVerb", "Open in", RegistryValueKind.String)
                 RegeditWriter1.SetValue("subcommands", "", RegistryValueKind.String)
 
@@ -136,6 +137,7 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta1)
                     RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta1, True)
                 End If
+                RegeditWriter1.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String)
                 RegeditWriter1.SetValue("MUIVerb", "Open in", RegistryValueKind.String)
                 RegeditWriter1.SetValue("subcommands", "", RegistryValueKind.String)
 
@@ -237,7 +239,7 @@ Module Complementos
                 RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta1, True)
             End If
             RegeditWriter1.SetValue("", "Get Location", RegistryValueKind.String)
-            'RegeditWriter1.SetValue("Icon", "ruta_a_un_icono_aqui", RegistryValueKind.String)
+            RegeditWriter1.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String)
 
             Dim RegeditWriter2 As RegistryKey
             RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
@@ -280,6 +282,7 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta1)
                     RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta1, True)
                 End If
+                RegeditWriter1.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String)
                 RegeditWriter1.SetValue("MUIVerb", "Open with", RegistryValueKind.String)
                 RegeditWriter1.SetValue("subcommands", "", RegistryValueKind.String)
 
