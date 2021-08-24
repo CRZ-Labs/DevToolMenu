@@ -19,29 +19,69 @@
             InsideFolder_DirCreate_OpenIn()
             If cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.CheckState = CheckState.Checked Then
                 InsideFolder_DirCreate_OpenIn(1)
+            Else
+                InsideFolder_DirRemover_OpenIn(1)
             End If
             If cb_InsideAFolder_Dir_OpenIn_InANewFolder.CheckState = CheckState.Checked Then
                 InsideFolder_DirCreate_OpenIn(2)
+            Else
+                InsideFolder_DirRemover_OpenIn(2)
             End If
             If cb_InsideAFolder_Dir_OpenIn_InPowerShell.CheckState = CheckState.Checked Then
                 InsideFolder_DirCreate_OpenIn(3)
+            Else
+                InsideFolder_DirRemover_OpenIn(3)
             End If
         Else
-            InsideFolder_Dir_OpenIn = False
+            InsideFolder_DirRemover_OpenIn()
         End If
         If cb_SelectAFolder_Dir_OpenIn.CheckState = CheckState.Checked Then
             SelectFolder_DirCreate_OpenIn()
             If cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.CheckState = CheckState.Checked Then
                 SelectFolder_DirCreate_OpenIn(1)
+            Else
+                SelectFolder_DirRemover_OpenIn(1)
             End If
             If cb_SelectAFolder_Dir_OpenIn_InANewFolder.CheckState = CheckState.Checked Then
                 SelectFolder_DirCreate_OpenIn(2)
+            Else
+                SelectFolder_DirRemover_OpenIn(2)
             End If
             If cb_SelectAFolder_Dir_OpenIn_InPowerShell.CheckState = CheckState.Checked Then
                 SelectFolder_DirCreate_OpenIn(3)
+            Else
+                SelectFolder_DirRemover_OpenIn(3)
             End If
         Else
-            SelectFolder_Dir_OpenIn = False
+            SelectFolder_DirRemover_OpenIn()
+        End If
+        If cb_InsideAFolder_Dir_GetLocation.CheckState = CheckState.Checked Then
+            InsideFolder_DirCreate_GetLocation()
+        Else
+            InsideFolder_DirCreate_GetLocation(True)
+        End If
+        If cb_SelectAFolder_Dir_GetLocation.CheckState = CheckState.Checked Then
+            SelectFolder_DirCreate_GetLocation()
+        Else
+            SelectFolder_DirCreate_GetLocation(True)
+        End If
+    End Sub
+    Private Sub tc_btn_File_Apply_Click(sender As Object, e As EventArgs) Handles tc_btn_File_Apply.Click
+        If cbFile_GetLocation.CheckState = CheckState.Checked Then
+            Create_GetLocation()
+        Else
+            Create_GetLocation(True)
+        End If
+
+        If cbFile_OpenWith.CheckState = CheckState.Checked Then
+            Create_OpenWith()
+            If cbFile_OpenWith_Notepad.CheckState = CheckState.Checked Then
+                Create_OpenWith(1)
+            Else
+                Remover_OpenWith(1)
+            End If
+        Else
+            Remover_OpenWith()
         End If
     End Sub
 
@@ -52,19 +92,6 @@
         Else
             cbFile_OpenWith_Notepad.Enabled = False
             cbFile_OpenWith_Other.Enabled = False
-        End If
-    End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles tc_btn_File_Apply.Click
-        If cbFile_GetLocation.CheckState = CheckState.Checked Then
-            Create_GetLocation()
-        End If
-
-        If cbFile_OpenWith.CheckState = CheckState.Checked Then
-            Create_OpenWith() 'Crear menu principal
-            If cbFile_OpenWith_Notepad.CheckState = CheckState.Checked Then
-                Create_OpenWith(1) 'Crear menu en la cascada principal
-            End If
         End If
     End Sub
 
@@ -96,5 +123,3 @@
         End If
     End Sub
 End Class
-'Based on
-'   https://medium.com/analytics-vidhya/creating-cascading-context-menus-with-the-windows-10-registry-f1cf3cd8398f

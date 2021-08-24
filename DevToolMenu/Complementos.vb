@@ -214,10 +214,223 @@ Module Complementos
             AddToLog("SelectFolder_DirCreate_OpenIn", "Error: " & ex.Message, True)
         End Try
     End Sub
+    Sub InsideFolder_DirCreate_GetLocation(Optional ByVal delete As Boolean = False)
+        Try
+
+            'Idea principal. Crear un menu  "GetLocation". GL = GetLocation
+            '   1) Crear la llave SOFTWARE\\Classes\\Directory\\Background\\shell\\GL
+            '       1.0) Escribir en el valor default el valor "Get Location"
+            '       1.1) Escribir en el valor "Icon" el valor "ruta_a_un_icono_aqui"
+            '   2) Crear la llave SOFTWARE\\Classes\\Directory\\Background\\shell\\GL\\command
+            '       2.0) Escribir el valor "Application.Exectuable & "/WindowsCall>GetLocation>%L"" en el valor defecto
+
+
+
+            Dim Ruta1 As String = "SOFTWARE\\Classes\\Directory\\Background\\shell"
+            Dim Ruta2 As String = Ruta1 & "\\GL"
+            Dim Ruta3 As String = Ruta2 & "\\command"
+            If delete = False Then
+                Dim RegeditWriter1 As RegistryKey
+                RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                If RegeditWriter1 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta2)
+                    RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                End If
+                RegeditWriter1.SetValue("", "Get Location", RegistryValueKind.String)
+                RegeditWriter1.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String)
+
+                Dim RegeditWriter2 As RegistryKey
+                RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta3, True)
+                If RegeditWriter2 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta3)
+                    RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta3, True)
+                End If
+                RegeditWriter2.SetValue("", """" & Application.ExecutablePath & "" & """" & "/WindowsCall>GetLocation>%V", RegistryValueKind.String)
+                InsideFolder_Dir_GetLocation = True
+            Else
+                'eliminar
+                Dim RegeditWriter1 As RegistryKey
+                RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta1, True)
+                If RegeditWriter1 Is Nothing Then
+                    Exit Sub
+                End If
+                RegeditWriter1.DeleteSubKeyTree("GL")
+                InsideFolder_Dir_GetLocation = False
+            End If
+        Catch ex As Exception
+            'MsgBox("Error al crear la llave." & vbCrLf & ex.Message)
+            AddToLog("InsideFolder_DirCreate_GetLocation", "Error: " & ex.Message, True)
+        End Try
+    End Sub
+    Sub SelectFolder_DirCreate_GetLocation(Optional ByVal delete As Boolean = False)
+        Try
+
+            'Idea principal. Crear un menu  "GetLocation". GL = GetLocation
+            '   1) Crear la llave SOFTWARE\\Classes\\Directory\\shell\\GL
+            '       1.0) Escribir en el valor default el valor "Get Location"
+            '       1.1) Escribir en el valor "Icon" el valor "ruta_a_un_icono_aqui"
+            '   2) Crear la llave SOFTWARE\\Classes\\Directory\\shell\\GL\\command
+            '       2.0) Escribir el valor "Application.Exectuable & "/WindowsCall>GetLocation>%L"" en el valor defecto
+
+
+
+            Dim Ruta1 As String = "SOFTWARE\\Classes\\Directory\\shell"
+            Dim Ruta2 As String = Ruta1 & "\\GL"
+            Dim Ruta3 As String = Ruta2 & "\\command"
+            If delete = False Then
+                Dim RegeditWriter1 As RegistryKey
+                RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                If RegeditWriter1 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta2)
+                    RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                End If
+                RegeditWriter1.SetValue("", "Get Location", RegistryValueKind.String)
+                RegeditWriter1.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String)
+
+                Dim RegeditWriter2 As RegistryKey
+                RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta3, True)
+                If RegeditWriter2 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta3)
+                    RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta3, True)
+                End If
+                RegeditWriter2.SetValue("", """" & Application.ExecutablePath & "" & """" & "/WindowsCall>GetLocation>%V", RegistryValueKind.String)
+                SelectFolder_Dir_GetLocation = True
+            Else
+                'eliminar
+                Dim RegeditWriter1 As RegistryKey
+                RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta1, True)
+                If RegeditWriter1 Is Nothing Then
+                    Exit Sub
+                End If
+                RegeditWriter1.DeleteSubKeyTree("GL")
+                SelectFolder_Dir_GetLocation = False
+            End If
+        Catch ex As Exception
+            'MsgBox("Error al crear la llave." & vbCrLf & ex.Message)
+            AddToLog("SelectFolder_DirCreate_GetLocation", "Error: " & ex.Message, True)
+        End Try
+    End Sub
+
+    Sub InsideFolder_DirRemover_OpenIn(Optional ByVal opt As SByte = 0)
+        Try
+            'SOFTWARE\Classes\Directory\Background\shell
+            Dim Ruta1 As String = "SOFTWARE\\Classes\\Directory\\Background\\shell"
+            Dim Ruta2 As String = Ruta1 & "\\OI\\shell"
+
+            If opt = 0 Then
+                If InsideFolder_Dir_OpenIn = True Then
+                    Dim RegeditWriter1 As RegistryKey
+                    RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta1, True)
+                    If RegeditWriter1 Is Nothing Then
+                        Exit Sub
+                    End If
+                    RegeditWriter1.DeleteSubKeyTree("OI")
+                    InsideFolder_Dir_OpenIn = False
+                End If
+            End If
+
+            If opt = 1 Then
+                If InsideFolder_Dir_OpenIn_InCommandPrompt = True Then
+                    Dim RegeditWriter1 As RegistryKey
+                    RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                    If RegeditWriter1 Is Nothing Then
+                        Exit Sub
+                    End If
+                    RegeditWriter1.DeleteSubKeyTree("InCMD")
+                    InsideFolder_Dir_OpenIn_InCommandPrompt = False
+                End If
+            End If
+
+            If opt = 2 Then
+                If InsideFolder_Dir_OpenIn_InANewFolder = True Then
+                    Dim RegeditWriter3 As RegistryKey
+                    RegeditWriter3 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                    If RegeditWriter3 Is Nothing Then
+                        Exit Sub
+                    End If
+                    RegeditWriter3.DeleteSubKeyTree("NewWindows")
+                    InsideFolder_Dir_OpenIn_InANewFolder = False
+                End If
+            End If
+
+            If opt = 3 Then
+                If InsideFolder_Dir_OpenIn_InPowerShell = True Then
+                    Dim RegeditWriter5 As RegistryKey
+                    RegeditWriter5 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                    If RegeditWriter5 Is Nothing Then
+                        Exit Sub
+                    End If
+                    RegeditWriter5.DeleteSubKeyTree("PowerShell")
+                    InsideFolder_Dir_OpenIn_InPowerShell = False
+                End If
+            End If
+        Catch ex As Exception
+            'MsgBox("Error al crear la llave." & vbCrLf & ex.Message)
+            AddToLog("InsideFolder_DirRemover_OpenIn", "Error: " & ex.Message, True)
+        End Try
+    End Sub
+    Sub SelectFolder_DirRemover_OpenIn(Optional ByVal opt As SByte = 0)
+        Try
+            'SOFTWARE\Classes\Directory\shell
+            Dim Ruta1 As String = "SOFTWARE\\Classes\\Directory\\shell"
+            Dim Ruta2 As String = Ruta1 & "\\OI\\shell"
+
+            If opt = 0 Then
+                If SelectFolder_Dir_OpenIn = True Then
+                    Dim RegeditWriter1 As RegistryKey
+                    RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta1, True)
+                    If RegeditWriter1 Is Nothing Then
+                        Exit Sub
+                    End If
+                    RegeditWriter1.DeleteSubKeyTree("OI")
+                    SelectFolder_Dir_OpenIn = False
+                End If
+            End If
+
+            If opt = 1 Then
+                If SelectFolder_Dir_OpenIn_InCommandPrompt = True Then
+                    Dim RegeditWriter1 As RegistryKey
+                    RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                    If RegeditWriter1 Is Nothing Then
+                        Exit Sub
+                    End If
+                    RegeditWriter1.DeleteSubKeyTree("InCMD")
+                    SelectFolder_Dir_OpenIn_InCommandPrompt = False
+                End If
+            End If
+
+            If opt = 2 Then
+                If SelectFolder_Dir_OpenIn_InANewFolder = True Then
+                    Dim RegeditWriter3 As RegistryKey
+                    RegeditWriter3 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                    If RegeditWriter3 Is Nothing Then
+                        Exit Sub
+                    End If
+                    RegeditWriter3.DeleteSubKeyTree("NewWindows")
+                    SelectFolder_Dir_OpenIn_InANewFolder = False
+                End If
+            End If
+
+            If opt = 3 Then
+                If SelectFolder_Dir_OpenIn_InPowerShell = True Then
+                    Dim RegeditWriter5 As RegistryKey
+                    RegeditWriter5 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                    If RegeditWriter5 Is Nothing Then
+                        Exit Sub
+                    End If
+                    RegeditWriter5.DeleteSubKeyTree("PowerShell")
+                    SelectFolder_Dir_OpenIn_InPowerShell = False
+                End If
+            End If
+        Catch ex As Exception
+            'MsgBox("Error al crear la llave." & vbCrLf & ex.Message)
+            AddToLog("SelectFolder_DirRemover_OpenIn", "Error: " & ex.Message, True)
+        End Try
+    End Sub
 #End Region
 
 #Region "Archivos"
-    Sub Create_GetLocation()
+    Sub Create_GetLocation(Optional ByVal delete As Boolean = False)
         Try
 
             'Idea principal. Crear un menu  "GetLocation". GL = GetLocation
@@ -229,31 +442,42 @@ Module Complementos
 
 
 
-            Dim Ruta1 As String = "SOFTWARE\\Classes\\*\\shell\\GL"
-            Dim Ruta2 As String = Ruta1 & "\\command"
+            Dim Ruta1 As String = "SOFTWARE\\Classes\\*\\shell"
+            Dim Ruta2 As String = Ruta1 & "\\GL"
+            Dim Ruta3 As String = Ruta2 & "\\command"
+            If delete = False Then
+                Dim RegeditWriter1 As RegistryKey
+                RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                If RegeditWriter1 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta2)
+                    RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                End If
+                RegeditWriter1.SetValue("", "Get Location", RegistryValueKind.String)
+                RegeditWriter1.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String)
 
-            Dim RegeditWriter1 As RegistryKey
-            RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta1, True)
-            If RegeditWriter1 Is Nothing Then
-                Registry.CurrentUser.CreateSubKey(Ruta1)
+                Dim RegeditWriter2 As RegistryKey
+                RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta3, True)
+                If RegeditWriter2 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta3)
+                    RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta3, True)
+                End If
+                RegeditWriter2.SetValue("", """" & Application.ExecutablePath & "" & """" & "/WindowsCall>GetLocation>%V", RegistryValueKind.String)
+                File_GetLocation = True
+            Else
+                'eliminar
+                Dim RegeditWriter1 As RegistryKey
                 RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta1, True)
+                If RegeditWriter1 Is Nothing Then
+                    Exit Sub
+                End If
+                RegeditWriter1.DeleteSubKeyTree("GL")
+                File_GetLocation = False
             End If
-            RegeditWriter1.SetValue("", "Get Location", RegistryValueKind.String)
-            RegeditWriter1.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String)
-
-            Dim RegeditWriter2 As RegistryKey
-            RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
-            If RegeditWriter2 Is Nothing Then
-                Registry.CurrentUser.CreateSubKey(Ruta2)
-                RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
-            End If
-            RegeditWriter2.SetValue("", """" & Application.ExecutablePath & "" & """" & "/WindowsCall>GetLocation>%V", RegistryValueKind.String)
-            File_GetLocation = True
         Catch ex As Exception
             'MsgBox("Error al crear la llave." & vbCrLf & ex.Message)
             AddToLog("Create_GetLocation", "Error: " & ex.Message, True)
         End Try
-    End Sub 'Pass 15/08/2021 06:43 PM
+    End Sub
 
     Sub Create_OpenWith(Optional ByVal opt As SByte = 0)
         Try
@@ -319,7 +543,46 @@ Module Complementos
             'MsgBox("Error al crear la llave." & vbCrLf & ex.Message)
             AddToLog("Create_OpenWith", "Error: " & ex.Message, True)
         End Try
-    End Sub 'Pass 15/08/2021 04:34 PM
+    End Sub
+    Sub Remover_OpenWith(Optional ByVal opt As SByte = 0)
+        Try
+
+            Dim Ruta1 As String = "SOFTWARE\\Classes\\*\\shell"
+            Dim Ruta2 As String = Ruta1 & "\\OW\\shell"
+
+
+
+            If opt = 0 Then
+                If File_OpenWith = True Then
+                    Dim RegeditWriter1 As RegistryKey
+                    RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta1, True)
+                    If RegeditWriter1 Is Nothing Then
+                        Registry.CurrentUser.CreateSubKey(Ruta1)
+                        RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta1, True)
+                    End If
+                    RegeditWriter1.DeleteSubKeyTree("OW")
+                    File_OpenWith = False
+                End If
+            End If
+
+            If opt = 1 Then
+                If File_OpenWith_Notepad = True Then
+                    Dim RegeditWriter2 As RegistryKey
+                    RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                    If RegeditWriter2 Is Nothing Then
+                        Registry.CurrentUser.CreateSubKey(Ruta2)
+                        RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                    End If
+                    RegeditWriter2.DeleteSubKeyTree("Notepad")
+                    File_OpenWith_Notepad = False
+                End If
+            End If
+
+        Catch ex As Exception
+            'MsgBox("Error al crear la llave." & vbCrLf & ex.Message)
+            AddToLog("Remover_OpenWith", "Error: " & ex.Message, True)
+        End Try
+    End Sub
 #End Region
 
     Sub AddToLog(ByVal from As String, ByVal content As String, Optional ByVal flag As Boolean = False)
@@ -344,10 +607,12 @@ Module Complementos
     Public InsideFolder_Dir_OpenIn_InCommandPrompt As Boolean = False
     Public InsideFolder_Dir_OpenIn_InANewFolder As Boolean = False
     Public InsideFolder_Dir_OpenIn_InPowerShell As Boolean = False
+    Public InsideFolder_Dir_GetLocation As Boolean = False
     Public SelectFolder_Dir_OpenIn As Boolean = False
     Public SelectFolder_Dir_OpenIn_InCommandPrompt As Boolean = False
     Public SelectFolder_Dir_OpenIn_InANewFolder As Boolean = False
     Public SelectFolder_Dir_OpenIn_InPowerShell As Boolean = False
+    Public SelectFolder_Dir_GetLocation As Boolean = False
 
     Public File_GetLocation As Boolean = False
     Public File_OpenWith As Boolean = False
@@ -382,11 +647,13 @@ Module Complementos
             ConfigDataRegeditWriter.SetValue("InsideFolder_Dir_OpenIn_InCommandPrompt", InsideFolder_Dir_OpenIn_InCommandPrompt, RegistryValueKind.String)
             ConfigDataRegeditWriter.SetValue("InsideFolder_Dir_OpenIn_InANewFolder", InsideFolder_Dir_OpenIn_InANewFolder, RegistryValueKind.String)
             ConfigDataRegeditWriter.SetValue("InsideFolder_Dir_OpenIn_InPowerShell", InsideFolder_Dir_OpenIn_InPowerShell, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("InsideFolder_Dir_GetLocation", InsideFolder_Dir_GetLocation, RegistryValueKind.String)
             '   Select a Folder
             ConfigDataRegeditWriter.SetValue("SelectFolder_Dir_OpenIn", SelectFolder_Dir_OpenIn, RegistryValueKind.String)
             ConfigDataRegeditWriter.SetValue("SelectFolder_Dir_OpenIn_InCommandPrompt", SelectFolder_Dir_OpenIn_InCommandPrompt, RegistryValueKind.String)
             ConfigDataRegeditWriter.SetValue("SelectFolder_Dir_OpenIn_InANewFolder", SelectFolder_Dir_OpenIn_InANewFolder, RegistryValueKind.String)
             ConfigDataRegeditWriter.SetValue("SelectFolder_Dir_OpenIn_InPowerShell", SelectFolder_Dir_OpenIn_InPowerShell, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("SelectFolder_Dir_GetLocation", SelectFolder_Dir_GetLocation, RegistryValueKind.String)
 
             'Archivos
             ConfigDataRegeditWriter.SetValue("File_GetLocation", File_GetLocation, RegistryValueKind.String)
@@ -416,11 +683,13 @@ Module Complementos
             InsideFolder_Dir_OpenIn_InCommandPrompt = Boolean.Parse(ConfigDataRegeditWriter.GetValue("InsideFolder_Dir_OpenIn_InCommandPrompt"))
             InsideFolder_Dir_OpenIn_InANewFolder = Boolean.Parse(ConfigDataRegeditWriter.GetValue("InsideFolder_Dir_OpenIn_InANewFolder"))
             InsideFolder_Dir_OpenIn_InPowerShell = Boolean.Parse(ConfigDataRegeditWriter.GetValue("InsideFolder_Dir_OpenIn_InPowerShell"))
+            InsideFolder_Dir_GetLocation = Boolean.Parse(ConfigDataRegeditWriter.GetValue("InsideFolder_Dir_GetLocation"))
             '   Select a Folder
             SelectFolder_Dir_OpenIn = Boolean.Parse(ConfigDataRegeditWriter.GetValue("SelectFolder_Dir_OpenIn"))
             SelectFolder_Dir_OpenIn_InCommandPrompt = Boolean.Parse(ConfigDataRegeditWriter.GetValue("SelectFolder_Dir_OpenIn_InCommandPrompt"))
             SelectFolder_Dir_OpenIn_InANewFolder = Boolean.Parse(ConfigDataRegeditWriter.GetValue("SelectFolder_Dir_OpenIn_InANewFolder"))
             SelectFolder_Dir_OpenIn_InPowerShell = Boolean.Parse(ConfigDataRegeditWriter.GetValue("SelectFolder_Dir_OpenIn_InPowerShell"))
+            SelectFolder_Dir_GetLocation = Boolean.Parse(ConfigDataRegeditWriter.GetValue("SelectFolder_Dir_GetLocation"))
 
             File_GetLocation = Boolean.Parse(ConfigDataRegeditWriter.GetValue("File_GetLocation"))
             File_OpenWith = Boolean.Parse(ConfigDataRegeditWriter.GetValue("File_OpenWith"))
@@ -430,28 +699,35 @@ Module Complementos
             '   Inside a Folder
             If InsideFolder_Dir_OpenIn = True Then
                 Main.cb_InsideAFolder_Dir_OpenIn.CheckState = CheckState.Checked
-                If InsideFolder_Dir_OpenIn_InCommandPrompt = True Then
-                    Main.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.CheckState = CheckState.Checked
-                End If
-                If InsideFolder_Dir_OpenIn_InANewFolder = True Then
-                    Main.cb_InsideAFolder_Dir_OpenIn_InANewFolder.CheckState = CheckState.Checked
-                End If
-                If InsideFolder_Dir_OpenIn_InPowerShell = True Then
-                    Main.cb_InsideAFolder_Dir_OpenIn_InPowerShell.CheckState = CheckState.Checked
-                End If
             End If
+            If InsideFolder_Dir_OpenIn_InCommandPrompt = True Then
+                Main.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.CheckState = CheckState.Checked
+            End If
+            If InsideFolder_Dir_OpenIn_InANewFolder = True Then
+                Main.cb_InsideAFolder_Dir_OpenIn_InANewFolder.CheckState = CheckState.Checked
+            End If
+            If InsideFolder_Dir_OpenIn_InPowerShell = True Then
+                Main.cb_InsideAFolder_Dir_OpenIn_InPowerShell.CheckState = CheckState.Checked
+            End If
+            If InsideFolder_Dir_GetLocation = True Then
+                Main.cb_InsideAFolder_Dir_GetLocation.CheckState = CheckState.Checked
+            End If
+
             '   Select a Folder
             If SelectFolder_Dir_OpenIn = True Then
                 Main.cb_SelectAFolder_Dir_OpenIn.CheckState = CheckState.Checked
-                If SelectFolder_Dir_OpenIn_InCommandPrompt = True Then
-                    Main.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.CheckState = CheckState.Checked
-                End If
-                If SelectFolder_Dir_OpenIn_InANewFolder = True Then
-                    Main.cb_SelectAFolder_Dir_OpenIn_InANewFolder.CheckState = CheckState.Checked
-                End If
-                If SelectFolder_Dir_OpenIn_InPowerShell = True Then
-                    Main.cb_SelectAFolder_Dir_OpenIn_InPowerShell.CheckState = CheckState.Checked
-                End If
+            End If
+            If SelectFolder_Dir_OpenIn_InCommandPrompt = True Then
+                Main.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.CheckState = CheckState.Checked
+            End If
+            If SelectFolder_Dir_OpenIn_InANewFolder = True Then
+                Main.cb_SelectAFolder_Dir_OpenIn_InANewFolder.CheckState = CheckState.Checked
+            End If
+            If SelectFolder_Dir_OpenIn_InPowerShell = True Then
+                Main.cb_SelectAFolder_Dir_OpenIn_InPowerShell.CheckState = CheckState.Checked
+            End If
+            If SelectFolder_Dir_GetLocation = True Then
+                Main.cb_SelectAFolder_Dir_GetLocation.CheckState = CheckState.Checked
             End If
 
 
@@ -460,9 +736,9 @@ Module Complementos
             End If
             If File_OpenWith = True Then
                 Main.cbFile_OpenWith.CheckState = CheckState.Checked
-                If File_OpenWith_Notepad = True Then
-                    Main.cbFile_OpenWith_Notepad.CheckState = CheckState.Checked
-                End If
+            End If
+            If File_OpenWith_Notepad = True Then
+                Main.cbFile_OpenWith_Notepad.CheckState = CheckState.Checked
             End If
         Catch ex As Exception
             'MsgBox("Error al cargar el estado." & vbCrLf & ex.Message)

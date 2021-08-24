@@ -27,12 +27,19 @@ Partial Class Main
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.gbDir_SelectingAFolder = New System.Windows.Forms.GroupBox()
+        Me.cb_SelectAFolder_Dir_OpenIn = New System.Windows.Forms.CheckBox()
+        Me.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt = New System.Windows.Forms.CheckBox()
+        Me.cb_SelectAFolder_Dir_OpenIn_InOther = New System.Windows.Forms.CheckBox()
+        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder = New System.Windows.Forms.CheckBox()
+        Me.cb_SelectAFolder_Dir_OpenIn_InPowerShell = New System.Windows.Forms.CheckBox()
+        Me.gbDir_InsideAFolder = New System.Windows.Forms.GroupBox()
         Me.cb_InsideAFolder_Dir_OpenIn = New System.Windows.Forms.CheckBox()
-        Me.cb_InsideAFolder_Dir_OpenIn_InOther = New System.Windows.Forms.CheckBox()
-        Me.cb_InsideAFolder_Dir_OpenIn_InPowerShell = New System.Windows.Forms.CheckBox()
-        Me.cb_InsideAFolder_Dir_OpenIn_InANewFolder = New System.Windows.Forms.CheckBox()
-        Me.tc_btn_Directory_Apply = New System.Windows.Forms.Button()
         Me.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt = New System.Windows.Forms.CheckBox()
+        Me.cb_InsideAFolder_Dir_OpenIn_InOther = New System.Windows.Forms.CheckBox()
+        Me.cb_InsideAFolder_Dir_OpenIn_InANewFolder = New System.Windows.Forms.CheckBox()
+        Me.cb_InsideAFolder_Dir_OpenIn_InPowerShell = New System.Windows.Forms.CheckBox()
+        Me.tc_btn_Directory_Apply = New System.Windows.Forms.Button()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.tc_btn_File_Apply = New System.Windows.Forms.Button()
         Me.cbFile_OpenWith_Other = New System.Windows.Forms.CheckBox()
@@ -40,18 +47,13 @@ Partial Class Main
         Me.cbFile_OpenWith = New System.Windows.Forms.CheckBox()
         Me.cbFile_GetLocation = New System.Windows.Forms.CheckBox()
         Me.Notifyer = New System.Windows.Forms.NotifyIcon(Me.components)
-        Me.gbDir_InsideAFolder = New System.Windows.Forms.GroupBox()
-        Me.gbDir_SelectingAFolder = New System.Windows.Forms.GroupBox()
-        Me.cb_SelectAFolder_Dir_OpenIn = New System.Windows.Forms.CheckBox()
-        Me.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt = New System.Windows.Forms.CheckBox()
-        Me.cb_SelectAFolder_Dir_OpenIn_InOther = New System.Windows.Forms.CheckBox()
-        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder = New System.Windows.Forms.CheckBox()
-        Me.cb_SelectAFolder_Dir_OpenIn_InPowerShell = New System.Windows.Forms.CheckBox()
+        Me.cb_InsideAFolder_Dir_GetLocation = New System.Windows.Forms.CheckBox()
+        Me.cb_SelectAFolder_Dir_GetLocation = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
-        Me.TabPage3.SuspendLayout()
-        Me.gbDir_InsideAFolder.SuspendLayout()
         Me.gbDir_SelectingAFolder.SuspendLayout()
+        Me.gbDir_InsideAFolder.SuspendLayout()
+        Me.TabPage3.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -91,40 +93,133 @@ Partial Class Main
         Me.TabPage2.Text = "Directorios"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
+        'gbDir_SelectingAFolder
+        '
+        Me.gbDir_SelectingAFolder.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.gbDir_SelectingAFolder.Controls.Add(Me.cb_SelectAFolder_Dir_GetLocation)
+        Me.gbDir_SelectingAFolder.Controls.Add(Me.cb_SelectAFolder_Dir_OpenIn)
+        Me.gbDir_SelectingAFolder.Controls.Add(Me.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt)
+        Me.gbDir_SelectingAFolder.Controls.Add(Me.cb_SelectAFolder_Dir_OpenIn_InOther)
+        Me.gbDir_SelectingAFolder.Controls.Add(Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder)
+        Me.gbDir_SelectingAFolder.Controls.Add(Me.cb_SelectAFolder_Dir_OpenIn_InPowerShell)
+        Me.gbDir_SelectingAFolder.Location = New System.Drawing.Point(379, 48)
+        Me.gbDir_SelectingAFolder.Name = "gbDir_SelectingAFolder"
+        Me.gbDir_SelectingAFolder.Size = New System.Drawing.Size(174, 159)
+        Me.gbDir_SelectingAFolder.TabIndex = 7
+        Me.gbDir_SelectingAFolder.TabStop = False
+        Me.gbDir_SelectingAFolder.Text = "Selecting a Folder"
+        '
+        'cb_SelectAFolder_Dir_OpenIn
+        '
+        Me.cb_SelectAFolder_Dir_OpenIn.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.cb_SelectAFolder_Dir_OpenIn.AutoSize = True
+        Me.cb_SelectAFolder_Dir_OpenIn.Location = New System.Drawing.Point(20, 46)
+        Me.cb_SelectAFolder_Dir_OpenIn.Name = "cb_SelectAFolder_Dir_OpenIn"
+        Me.cb_SelectAFolder_Dir_OpenIn.Size = New System.Drawing.Size(63, 17)
+        Me.cb_SelectAFolder_Dir_OpenIn.TabIndex = 5
+        Me.cb_SelectAFolder_Dir_OpenIn.Text = "Open in"
+        Me.cb_SelectAFolder_Dir_OpenIn.UseVisualStyleBackColor = True
+        '
+        'cb_SelectAFolder_Dir_OpenIn_InCommandPrompt
+        '
+        Me.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.AutoSize = True
+        Me.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.Enabled = False
+        Me.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.Location = New System.Drawing.Point(35, 69)
+        Me.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.Name = "cb_SelectAFolder_Dir_OpenIn_InCommandPrompt"
+        Me.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.Size = New System.Drawing.Size(120, 17)
+        Me.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.TabIndex = 0
+        Me.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.Text = "in Command Prompt"
+        Me.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.UseVisualStyleBackColor = True
+        '
+        'cb_SelectAFolder_Dir_OpenIn_InOther
+        '
+        Me.cb_SelectAFolder_Dir_OpenIn_InOther.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.cb_SelectAFolder_Dir_OpenIn_InOther.AutoSize = True
+        Me.cb_SelectAFolder_Dir_OpenIn_InOther.Enabled = False
+        Me.cb_SelectAFolder_Dir_OpenIn_InOther.Location = New System.Drawing.Point(35, 138)
+        Me.cb_SelectAFolder_Dir_OpenIn_InOther.Name = "cb_SelectAFolder_Dir_OpenIn_InOther"
+        Me.cb_SelectAFolder_Dir_OpenIn_InOther.Size = New System.Drawing.Size(50, 17)
+        Me.cb_SelectAFolder_Dir_OpenIn_InOther.TabIndex = 4
+        Me.cb_SelectAFolder_Dir_OpenIn_InOther.Text = "other"
+        Me.cb_SelectAFolder_Dir_OpenIn_InOther.UseVisualStyleBackColor = True
+        '
+        'cb_SelectAFolder_Dir_OpenIn_InANewFolder
+        '
+        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder.AutoSize = True
+        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder.Checked = True
+        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder.Enabled = False
+        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder.Location = New System.Drawing.Point(35, 92)
+        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder.Name = "cb_SelectAFolder_Dir_OpenIn_InANewFolder"
+        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder.Size = New System.Drawing.Size(95, 17)
+        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder.TabIndex = 2
+        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder.Text = "in a new folder"
+        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder.UseVisualStyleBackColor = True
+        '
+        'cb_SelectAFolder_Dir_OpenIn_InPowerShell
+        '
+        Me.cb_SelectAFolder_Dir_OpenIn_InPowerShell.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.cb_SelectAFolder_Dir_OpenIn_InPowerShell.AutoSize = True
+        Me.cb_SelectAFolder_Dir_OpenIn_InPowerShell.Enabled = False
+        Me.cb_SelectAFolder_Dir_OpenIn_InPowerShell.Location = New System.Drawing.Point(35, 115)
+        Me.cb_SelectAFolder_Dir_OpenIn_InPowerShell.Name = "cb_SelectAFolder_Dir_OpenIn_InPowerShell"
+        Me.cb_SelectAFolder_Dir_OpenIn_InPowerShell.Size = New System.Drawing.Size(90, 17)
+        Me.cb_SelectAFolder_Dir_OpenIn_InPowerShell.TabIndex = 3
+        Me.cb_SelectAFolder_Dir_OpenIn_InPowerShell.Text = "in PowerShell"
+        Me.cb_SelectAFolder_Dir_OpenIn_InPowerShell.UseVisualStyleBackColor = True
+        '
+        'gbDir_InsideAFolder
+        '
+        Me.gbDir_InsideAFolder.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.gbDir_InsideAFolder.Controls.Add(Me.cb_InsideAFolder_Dir_GetLocation)
+        Me.gbDir_InsideAFolder.Controls.Add(Me.cb_InsideAFolder_Dir_OpenIn)
+        Me.gbDir_InsideAFolder.Controls.Add(Me.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt)
+        Me.gbDir_InsideAFolder.Controls.Add(Me.cb_InsideAFolder_Dir_OpenIn_InOther)
+        Me.gbDir_InsideAFolder.Controls.Add(Me.cb_InsideAFolder_Dir_OpenIn_InANewFolder)
+        Me.gbDir_InsideAFolder.Controls.Add(Me.cb_InsideAFolder_Dir_OpenIn_InPowerShell)
+        Me.gbDir_InsideAFolder.Location = New System.Drawing.Point(199, 48)
+        Me.gbDir_InsideAFolder.Name = "gbDir_InsideAFolder"
+        Me.gbDir_InsideAFolder.Size = New System.Drawing.Size(174, 159)
+        Me.gbDir_InsideAFolder.TabIndex = 6
+        Me.gbDir_InsideAFolder.TabStop = False
+        Me.gbDir_InsideAFolder.Text = "Inside a Folder"
+        '
         'cb_InsideAFolder_Dir_OpenIn
         '
         Me.cb_InsideAFolder_Dir_OpenIn.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.cb_InsideAFolder_Dir_OpenIn.AutoSize = True
-        Me.cb_InsideAFolder_Dir_OpenIn.Location = New System.Drawing.Point(20, 25)
+        Me.cb_InsideAFolder_Dir_OpenIn.Location = New System.Drawing.Point(20, 46)
         Me.cb_InsideAFolder_Dir_OpenIn.Name = "cb_InsideAFolder_Dir_OpenIn"
         Me.cb_InsideAFolder_Dir_OpenIn.Size = New System.Drawing.Size(63, 17)
         Me.cb_InsideAFolder_Dir_OpenIn.TabIndex = 5
         Me.cb_InsideAFolder_Dir_OpenIn.Text = "Open in"
         Me.cb_InsideAFolder_Dir_OpenIn.UseVisualStyleBackColor = True
         '
+        'cb_InsideAFolder_Dir_OpenIn_InCommandPrompt
+        '
+        Me.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.AutoSize = True
+        Me.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.Enabled = False
+        Me.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.Location = New System.Drawing.Point(35, 69)
+        Me.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.Name = "cb_InsideAFolder_Dir_OpenIn_InCommandPrompt"
+        Me.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.Size = New System.Drawing.Size(120, 17)
+        Me.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.TabIndex = 0
+        Me.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.Text = "in Command Prompt"
+        Me.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.UseVisualStyleBackColor = True
+        '
         'cb_InsideAFolder_Dir_OpenIn_InOther
         '
         Me.cb_InsideAFolder_Dir_OpenIn_InOther.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.cb_InsideAFolder_Dir_OpenIn_InOther.AutoSize = True
         Me.cb_InsideAFolder_Dir_OpenIn_InOther.Enabled = False
-        Me.cb_InsideAFolder_Dir_OpenIn_InOther.Location = New System.Drawing.Point(35, 117)
+        Me.cb_InsideAFolder_Dir_OpenIn_InOther.Location = New System.Drawing.Point(35, 138)
         Me.cb_InsideAFolder_Dir_OpenIn_InOther.Name = "cb_InsideAFolder_Dir_OpenIn_InOther"
         Me.cb_InsideAFolder_Dir_OpenIn_InOther.Size = New System.Drawing.Size(50, 17)
         Me.cb_InsideAFolder_Dir_OpenIn_InOther.TabIndex = 4
         Me.cb_InsideAFolder_Dir_OpenIn_InOther.Text = "other"
         Me.cb_InsideAFolder_Dir_OpenIn_InOther.UseVisualStyleBackColor = True
-        '
-        'cb_InsideAFolder_Dir_OpenIn_InPowerShell
-        '
-        Me.cb_InsideAFolder_Dir_OpenIn_InPowerShell.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.cb_InsideAFolder_Dir_OpenIn_InPowerShell.AutoSize = True
-        Me.cb_InsideAFolder_Dir_OpenIn_InPowerShell.Enabled = False
-        Me.cb_InsideAFolder_Dir_OpenIn_InPowerShell.Location = New System.Drawing.Point(35, 94)
-        Me.cb_InsideAFolder_Dir_OpenIn_InPowerShell.Name = "cb_InsideAFolder_Dir_OpenIn_InPowerShell"
-        Me.cb_InsideAFolder_Dir_OpenIn_InPowerShell.Size = New System.Drawing.Size(90, 17)
-        Me.cb_InsideAFolder_Dir_OpenIn_InPowerShell.TabIndex = 3
-        Me.cb_InsideAFolder_Dir_OpenIn_InPowerShell.Text = "in PowerShell"
-        Me.cb_InsideAFolder_Dir_OpenIn_InPowerShell.UseVisualStyleBackColor = True
         '
         'cb_InsideAFolder_Dir_OpenIn_InANewFolder
         '
@@ -132,12 +227,24 @@ Partial Class Main
         Me.cb_InsideAFolder_Dir_OpenIn_InANewFolder.Checked = True
         Me.cb_InsideAFolder_Dir_OpenIn_InANewFolder.CheckState = System.Windows.Forms.CheckState.Checked
         Me.cb_InsideAFolder_Dir_OpenIn_InANewFolder.Enabled = False
-        Me.cb_InsideAFolder_Dir_OpenIn_InANewFolder.Location = New System.Drawing.Point(35, 71)
+        Me.cb_InsideAFolder_Dir_OpenIn_InANewFolder.Location = New System.Drawing.Point(35, 92)
         Me.cb_InsideAFolder_Dir_OpenIn_InANewFolder.Name = "cb_InsideAFolder_Dir_OpenIn_InANewFolder"
         Me.cb_InsideAFolder_Dir_OpenIn_InANewFolder.Size = New System.Drawing.Size(95, 17)
         Me.cb_InsideAFolder_Dir_OpenIn_InANewFolder.TabIndex = 2
         Me.cb_InsideAFolder_Dir_OpenIn_InANewFolder.Text = "in a new folder"
         Me.cb_InsideAFolder_Dir_OpenIn_InANewFolder.UseVisualStyleBackColor = True
+        '
+        'cb_InsideAFolder_Dir_OpenIn_InPowerShell
+        '
+        Me.cb_InsideAFolder_Dir_OpenIn_InPowerShell.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.cb_InsideAFolder_Dir_OpenIn_InPowerShell.AutoSize = True
+        Me.cb_InsideAFolder_Dir_OpenIn_InPowerShell.Enabled = False
+        Me.cb_InsideAFolder_Dir_OpenIn_InPowerShell.Location = New System.Drawing.Point(35, 115)
+        Me.cb_InsideAFolder_Dir_OpenIn_InPowerShell.Name = "cb_InsideAFolder_Dir_OpenIn_InPowerShell"
+        Me.cb_InsideAFolder_Dir_OpenIn_InPowerShell.Size = New System.Drawing.Size(90, 17)
+        Me.cb_InsideAFolder_Dir_OpenIn_InPowerShell.TabIndex = 3
+        Me.cb_InsideAFolder_Dir_OpenIn_InPowerShell.Text = "in PowerShell"
+        Me.cb_InsideAFolder_Dir_OpenIn_InPowerShell.UseVisualStyleBackColor = True
         '
         'tc_btn_Directory_Apply
         '
@@ -148,18 +255,6 @@ Partial Class Main
         Me.tc_btn_Directory_Apply.TabIndex = 1
         Me.tc_btn_Directory_Apply.Text = "Apply"
         Me.tc_btn_Directory_Apply.UseVisualStyleBackColor = True
-        '
-        'cb_InsideAFolder_Dir_OpenIn_InCommandPrompt
-        '
-        Me.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.AutoSize = True
-        Me.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.Enabled = False
-        Me.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.Location = New System.Drawing.Point(35, 48)
-        Me.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.Name = "cb_InsideAFolder_Dir_OpenIn_InCommandPrompt"
-        Me.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.Size = New System.Drawing.Size(120, 17)
-        Me.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.TabIndex = 0
-        Me.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.Text = "in Command Prompt"
-        Me.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.UseVisualStyleBackColor = True
         '
         'TabPage3
         '
@@ -238,96 +333,25 @@ Partial Class Main
         Me.Notifyer.Icon = CType(resources.GetObject("Notifyer.Icon"), System.Drawing.Icon)
         Me.Notifyer.Visible = True
         '
-        'gbDir_InsideAFolder
+        'cb_InsideAFolder_Dir_GetLocation
         '
-        Me.gbDir_InsideAFolder.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.gbDir_InsideAFolder.Controls.Add(Me.cb_InsideAFolder_Dir_OpenIn)
-        Me.gbDir_InsideAFolder.Controls.Add(Me.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt)
-        Me.gbDir_InsideAFolder.Controls.Add(Me.cb_InsideAFolder_Dir_OpenIn_InOther)
-        Me.gbDir_InsideAFolder.Controls.Add(Me.cb_InsideAFolder_Dir_OpenIn_InANewFolder)
-        Me.gbDir_InsideAFolder.Controls.Add(Me.cb_InsideAFolder_Dir_OpenIn_InPowerShell)
-        Me.gbDir_InsideAFolder.Location = New System.Drawing.Point(199, 48)
-        Me.gbDir_InsideAFolder.Name = "gbDir_InsideAFolder"
-        Me.gbDir_InsideAFolder.Size = New System.Drawing.Size(174, 159)
-        Me.gbDir_InsideAFolder.TabIndex = 6
-        Me.gbDir_InsideAFolder.TabStop = False
-        Me.gbDir_InsideAFolder.Text = "Inside a Folder"
+        Me.cb_InsideAFolder_Dir_GetLocation.AutoSize = True
+        Me.cb_InsideAFolder_Dir_GetLocation.Location = New System.Drawing.Point(20, 23)
+        Me.cb_InsideAFolder_Dir_GetLocation.Name = "cb_InsideAFolder_Dir_GetLocation"
+        Me.cb_InsideAFolder_Dir_GetLocation.Size = New System.Drawing.Size(87, 17)
+        Me.cb_InsideAFolder_Dir_GetLocation.TabIndex = 6
+        Me.cb_InsideAFolder_Dir_GetLocation.Text = "Get Location"
+        Me.cb_InsideAFolder_Dir_GetLocation.UseVisualStyleBackColor = True
         '
-        'gbDir_SelectingAFolder
+        'cb_SelectAFolder_Dir_GetLocation
         '
-        Me.gbDir_SelectingAFolder.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.gbDir_SelectingAFolder.Controls.Add(Me.cb_SelectAFolder_Dir_OpenIn)
-        Me.gbDir_SelectingAFolder.Controls.Add(Me.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt)
-        Me.gbDir_SelectingAFolder.Controls.Add(Me.cb_SelectAFolder_Dir_OpenIn_InOther)
-        Me.gbDir_SelectingAFolder.Controls.Add(Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder)
-        Me.gbDir_SelectingAFolder.Controls.Add(Me.cb_SelectAFolder_Dir_OpenIn_InPowerShell)
-        Me.gbDir_SelectingAFolder.Location = New System.Drawing.Point(379, 48)
-        Me.gbDir_SelectingAFolder.Name = "gbDir_SelectingAFolder"
-        Me.gbDir_SelectingAFolder.Size = New System.Drawing.Size(174, 159)
-        Me.gbDir_SelectingAFolder.TabIndex = 7
-        Me.gbDir_SelectingAFolder.TabStop = False
-        Me.gbDir_SelectingAFolder.Text = "Selecting a Folder"
-        '
-        'cb_SelectAFolder_Dir_OpenIn
-        '
-        Me.cb_SelectAFolder_Dir_OpenIn.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.cb_SelectAFolder_Dir_OpenIn.AutoSize = True
-        Me.cb_SelectAFolder_Dir_OpenIn.Location = New System.Drawing.Point(20, 25)
-        Me.cb_SelectAFolder_Dir_OpenIn.Name = "cb_SelectAFolder_Dir_OpenIn"
-        Me.cb_SelectAFolder_Dir_OpenIn.Size = New System.Drawing.Size(63, 17)
-        Me.cb_SelectAFolder_Dir_OpenIn.TabIndex = 5
-        Me.cb_SelectAFolder_Dir_OpenIn.Text = "Open in"
-        Me.cb_SelectAFolder_Dir_OpenIn.UseVisualStyleBackColor = True
-        '
-        'cb_SelectAFolder_Dir_OpenIn_InCommandPrompt
-        '
-        Me.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.AutoSize = True
-        Me.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.Enabled = False
-        Me.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.Location = New System.Drawing.Point(35, 48)
-        Me.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.Name = "cb_SelectAFolder_Dir_OpenIn_InCommandPrompt"
-        Me.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.Size = New System.Drawing.Size(120, 17)
-        Me.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.TabIndex = 0
-        Me.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.Text = "in Command Prompt"
-        Me.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.UseVisualStyleBackColor = True
-        '
-        'cb_SelectAFolder_Dir_OpenIn_InOther
-        '
-        Me.cb_SelectAFolder_Dir_OpenIn_InOther.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.cb_SelectAFolder_Dir_OpenIn_InOther.AutoSize = True
-        Me.cb_SelectAFolder_Dir_OpenIn_InOther.Enabled = False
-        Me.cb_SelectAFolder_Dir_OpenIn_InOther.Location = New System.Drawing.Point(35, 117)
-        Me.cb_SelectAFolder_Dir_OpenIn_InOther.Name = "cb_SelectAFolder_Dir_OpenIn_InOther"
-        Me.cb_SelectAFolder_Dir_OpenIn_InOther.Size = New System.Drawing.Size(50, 17)
-        Me.cb_SelectAFolder_Dir_OpenIn_InOther.TabIndex = 4
-        Me.cb_SelectAFolder_Dir_OpenIn_InOther.Text = "other"
-        Me.cb_SelectAFolder_Dir_OpenIn_InOther.UseVisualStyleBackColor = True
-        '
-        'cb_SelectAFolder_Dir_OpenIn_InANewFolder
-        '
-        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder.AutoSize = True
-        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder.Checked = True
-        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder.Enabled = False
-        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder.Location = New System.Drawing.Point(35, 71)
-        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder.Name = "cb_SelectAFolder_Dir_OpenIn_InANewFolder"
-        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder.Size = New System.Drawing.Size(95, 17)
-        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder.TabIndex = 2
-        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder.Text = "in a new folder"
-        Me.cb_SelectAFolder_Dir_OpenIn_InANewFolder.UseVisualStyleBackColor = True
-        '
-        'cb_SelectAFolder_Dir_OpenIn_InPowerShell
-        '
-        Me.cb_SelectAFolder_Dir_OpenIn_InPowerShell.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.cb_SelectAFolder_Dir_OpenIn_InPowerShell.AutoSize = True
-        Me.cb_SelectAFolder_Dir_OpenIn_InPowerShell.Enabled = False
-        Me.cb_SelectAFolder_Dir_OpenIn_InPowerShell.Location = New System.Drawing.Point(35, 94)
-        Me.cb_SelectAFolder_Dir_OpenIn_InPowerShell.Name = "cb_SelectAFolder_Dir_OpenIn_InPowerShell"
-        Me.cb_SelectAFolder_Dir_OpenIn_InPowerShell.Size = New System.Drawing.Size(90, 17)
-        Me.cb_SelectAFolder_Dir_OpenIn_InPowerShell.TabIndex = 3
-        Me.cb_SelectAFolder_Dir_OpenIn_InPowerShell.Text = "in PowerShell"
-        Me.cb_SelectAFolder_Dir_OpenIn_InPowerShell.UseVisualStyleBackColor = True
+        Me.cb_SelectAFolder_Dir_GetLocation.AutoSize = True
+        Me.cb_SelectAFolder_Dir_GetLocation.Location = New System.Drawing.Point(20, 23)
+        Me.cb_SelectAFolder_Dir_GetLocation.Name = "cb_SelectAFolder_Dir_GetLocation"
+        Me.cb_SelectAFolder_Dir_GetLocation.Size = New System.Drawing.Size(87, 17)
+        Me.cb_SelectAFolder_Dir_GetLocation.TabIndex = 7
+        Me.cb_SelectAFolder_Dir_GetLocation.Text = "Get Location"
+        Me.cb_SelectAFolder_Dir_GetLocation.UseVisualStyleBackColor = True
         '
         'Main
         '
@@ -343,12 +367,12 @@ Partial Class Main
         Me.Text = "Main"
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage2.ResumeLayout(False)
-        Me.TabPage3.ResumeLayout(False)
-        Me.TabPage3.PerformLayout()
-        Me.gbDir_InsideAFolder.ResumeLayout(False)
-        Me.gbDir_InsideAFolder.PerformLayout()
         Me.gbDir_SelectingAFolder.ResumeLayout(False)
         Me.gbDir_SelectingAFolder.PerformLayout()
+        Me.gbDir_InsideAFolder.ResumeLayout(False)
+        Me.gbDir_InsideAFolder.PerformLayout()
+        Me.TabPage3.ResumeLayout(False)
+        Me.TabPage3.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -376,4 +400,6 @@ Partial Class Main
     Friend WithEvents cb_SelectAFolder_Dir_OpenIn_InOther As CheckBox
     Friend WithEvents cb_SelectAFolder_Dir_OpenIn_InANewFolder As CheckBox
     Friend WithEvents cb_SelectAFolder_Dir_OpenIn_InPowerShell As CheckBox
+    Friend WithEvents cb_SelectAFolder_Dir_GetLocation As CheckBox
+    Friend WithEvents cb_InsideAFolder_Dir_GetLocation As CheckBox
 End Class
