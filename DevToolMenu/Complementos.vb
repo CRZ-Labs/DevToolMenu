@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.Win32
 Module Complementos
+    Public DIRCommons As String = "C:\Users\" & Environment.UserName & "\AppData\Local\CRZ_Labs\DevToolMenu"
 
 #Region "Directorios"
     Sub InsideFolder_DirCreate_OpenIn(Optional ByVal opt As SByte = 0)
@@ -585,6 +586,390 @@ Module Complementos
     End Sub
 #End Region
 
+#Region "Others"
+#Region "Dir"
+    Sub InsideFolder_DirCreate_OpenInOther(Optional ByVal opt As SByte = 0)
+        Try
+
+            Dim Ruta1 As String = "SOFTWARE\\Classes\\Directory\\Background\\shell\\OI"
+            Dim Ruta2 As String = Ruta1 & "\\shell"
+
+            If opt = 0 Then
+                InsideFolder_Dir_OpenInOther = True
+            End If
+
+            If opt = 1 Then
+                Dim RegeditWriter1 As RegistryKey
+                RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_1", True)
+                If RegeditWriter1 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta2 & "\\OI_1")
+                    RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_1", True)
+                End If
+                RegeditWriter1.SetValue("", Main.tb_InsideAFolder_gbDir_1.Text, RegistryValueKind.String)
+                RegeditWriter1.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+
+                Dim RegeditWriter11 As RegistryKey
+                RegeditWriter11 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_1\\command", True)
+                If RegeditWriter11 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta2 & "\\OI_1\\command")
+                    RegeditWriter11 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_1\\command", True)
+                End If
+                RegeditWriter11.SetValue("", Main.tbFile_gbFile_11.Text, RegistryValueKind.String)
+                InsideFolder_Dir_OpenIn1 = True
+            End If
+
+            If opt = 2 Then
+                Dim RegeditWriter2 As RegistryKey
+                RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_2", True)
+                If RegeditWriter2 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta2 & "\\OI_2")
+                    RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_2", True)
+                End If
+                RegeditWriter2.SetValue("", Main.tb_InsideAFolder_gbDir_2.Text, RegistryValueKind.String)
+                RegeditWriter2.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+
+                Dim RegeditWriter22 As RegistryKey
+                RegeditWriter22 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_2\\command", True)
+                If RegeditWriter22 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta2 & "\\OI_2\\command")
+                    RegeditWriter22 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_2\\command", True)
+                End If
+                RegeditWriter22.SetValue("", Main.tbFile_gbFile_22.Text, RegistryValueKind.String)
+                InsideFolder_Dir_OpenIn2 = True
+            End If
+
+            If opt = 3 Then
+                Dim RegeditWriter3 As RegistryKey
+                RegeditWriter3 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_2", True)
+                If RegeditWriter3 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta2 & "\\OI_2")
+                    RegeditWriter3 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_2", True)
+                End If
+                RegeditWriter3.SetValue("", Main.tb_InsideAFolder_gbDir_3.Text, RegistryValueKind.String)
+                RegeditWriter3.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+
+                Dim RegeditWriter33 As RegistryKey
+                RegeditWriter33 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_2\\command", True)
+                If RegeditWriter33 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta2 & "\\OI_2\\command")
+                    RegeditWriter33 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_2\\command", True)
+                End If
+                RegeditWriter33.SetValue("", Main.tbFile_gbFile_33.Text, RegistryValueKind.String)
+                InsideFolder_Dir_OpenIn3 = True
+            End If
+
+        Catch ex As Exception
+            'MsgBox("Error al crear la llave." & vbCrLf & ex.Message)
+            AddToLog("InsideFolder_DirCreate_OpenIn", "Error: " & ex.Message, True)
+        End Try
+    End Sub
+    Sub InsideFolder_DirRemover_OpenInOther(Optional ByVal opt As SByte = 0)
+        Try
+            'SOFTWARE\Classes\Directory\Background\shell
+            Dim Ruta1 As String = "SOFTWARE\\Classes\\Directory\\Background\\shell"
+            Dim Ruta2 As String = Ruta1 & "\\OI\\shell"
+
+            If opt = 0 Then
+                InsideFolder_Dir_OpenInOther = False
+            End If
+
+            If opt = 1 Then
+                If InsideFolder_Dir_OpenIn1 = True Then
+                    Dim RegeditWriter1 As RegistryKey
+                    RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                    If RegeditWriter1 Is Nothing Then
+                        Exit Sub
+                    End If
+                    RegeditWriter1.DeleteSubKeyTree("OI_1")
+                    InsideFolder_Dir_OpenIn1 = False
+                End If
+            End If
+
+            If opt = 2 Then
+                If InsideFolder_Dir_OpenIn2 = True Then
+                    Dim RegeditWriter3 As RegistryKey
+                    RegeditWriter3 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                    If RegeditWriter3 Is Nothing Then
+                        Exit Sub
+                    End If
+                    RegeditWriter3.DeleteSubKeyTree("OI_2")
+                    InsideFolder_Dir_OpenIn2 = False
+                End If
+            End If
+
+            If opt = 3 Then
+                If InsideFolder_Dir_OpenIn3 = True Then
+                    Dim RegeditWriter5 As RegistryKey
+                    RegeditWriter5 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                    If RegeditWriter5 Is Nothing Then
+                        Exit Sub
+                    End If
+                    RegeditWriter5.DeleteSubKeyTree("OI_3")
+                    InsideFolder_Dir_OpenIn3 = False
+                End If
+            End If
+        Catch ex As Exception
+            'MsgBox("Error al crear la llave." & vbCrLf & ex.Message)
+            AddToLog("InsideFolder_DirRemover_OpenIn", "Error: " & ex.Message, True)
+        End Try
+    End Sub
+
+    Sub SelectFolder_DirCreate_OpenInOther(Optional ByVal opt As SByte = 0)
+        Try
+
+            Dim Ruta1 As String = "SOFTWARE\\Classes\\Directory\\shell\\OI"
+            Dim Ruta2 As String = Ruta1 & "\\shell"
+
+            If opt = 0 Then
+                SelectFolder_Dir_OpenInOther = True
+            End If
+
+            If opt = 1 Then
+                Dim RegeditWriter1 As RegistryKey
+                RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_1", True)
+                If RegeditWriter1 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta2 & "\\OI_1")
+                    RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_1", True)
+                End If
+                RegeditWriter1.SetValue("", Main.tb_SelectAFolder_gbDir_1.Text, RegistryValueKind.String)
+                RegeditWriter1.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+
+                Dim RegeditWriter11 As RegistryKey
+                RegeditWriter11 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_1\\command", True)
+                If RegeditWriter11 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta2 & "\\OI_1\\command")
+                    RegeditWriter11 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_1\\command", True)
+                End If
+                RegeditWriter11.SetValue("", Main.tb_SelectAFolder_gbDir_11.Text, RegistryValueKind.String)
+                SelectFolder_Dir_OpenIn1 = True
+            End If
+
+            If opt = 2 Then
+                Dim RegeditWriter2 As RegistryKey
+                RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_2", True)
+                If RegeditWriter2 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta2 & "\\OI_2")
+                    RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_2", True)
+                End If
+                RegeditWriter2.SetValue("", Main.tb_SelectAFolder_gbDir_2.Text, RegistryValueKind.String)
+                RegeditWriter2.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+
+                Dim RegeditWriter22 As RegistryKey
+                RegeditWriter22 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_2\\command", True)
+                If RegeditWriter22 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta2 & "\\OI_2\\command")
+                    RegeditWriter22 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_2\\command", True)
+                End If
+                RegeditWriter22.SetValue("", Main.tb_SelectAFolder_gbDir_22.Text, RegistryValueKind.String)
+                SelectFolder_Dir_OpenIn2 = True
+            End If
+
+            If opt = 3 Then
+                Dim RegeditWriter3 As RegistryKey
+                RegeditWriter3 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_3", True)
+                If RegeditWriter3 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta2 & "\\OI_3")
+                    RegeditWriter3 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_3", True)
+                End If
+                RegeditWriter3.SetValue("", Main.tb_SelectAFolder_gbDir_3.Text, RegistryValueKind.String)
+                RegeditWriter3.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+
+                Dim RegeditWriter33 As RegistryKey
+                RegeditWriter33 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_3\\command", True)
+                If RegeditWriter33 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta2 & "\\OI_3\\command")
+                    RegeditWriter33 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_3\\command", True)
+                End If
+                RegeditWriter33.SetValue("", Main.tb_SelectAFolder_gbDir_33.Text, RegistryValueKind.String)
+                SelectFolder_Dir_OpenIn3 = True
+            End If
+        Catch ex As Exception
+            'MsgBox("Error al crear la llave." & vbCrLf & ex.Message)
+            AddToLog("SelectFolder_DirCreate_OpenIn", "Error: " & ex.Message, True)
+        End Try
+    End Sub
+    Sub SelectFolder_DirRemover_OpenInOther(Optional ByVal opt As SByte = 0)
+        Try
+            'SOFTWARE\Classes\Directory\shell
+            Dim Ruta1 As String = "SOFTWARE\\Classes\\Directory\\shell"
+            Dim Ruta2 As String = Ruta1 & "\\OI\\shell"
+
+            If opt = 0 Then
+                SelectFolder_Dir_OpenInOther = False
+            End If
+
+            If opt = 1 Then
+                If SelectFolder_Dir_OpenIn1 = True Then
+                    Dim RegeditWriter1 As RegistryKey
+                    RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                    If RegeditWriter1 Is Nothing Then
+                        Exit Sub
+                    End If
+                    RegeditWriter1.DeleteSubKeyTree("OI_1")
+                    SelectFolder_Dir_OpenIn1 = False
+                End If
+            End If
+
+            If opt = 2 Then
+                If SelectFolder_Dir_OpenIn2 = True Then
+                    Dim RegeditWriter2 As RegistryKey
+                    RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                    If RegeditWriter2 Is Nothing Then
+                        Exit Sub
+                    End If
+                    RegeditWriter2.DeleteSubKeyTree("OI_2")
+                    SelectFolder_Dir_OpenIn2 = False
+                End If
+            End If
+
+            If opt = 3 Then
+                If SelectFolder_Dir_OpenIn3 = True Then
+                    Dim RegeditWriter3 As RegistryKey
+                    RegeditWriter3 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                    If RegeditWriter3 Is Nothing Then
+                        Exit Sub
+                    End If
+                    RegeditWriter3.DeleteSubKeyTree("OI_3")
+                    SelectFolder_Dir_OpenIn3 = False
+                End If
+            End If
+        Catch ex As Exception
+            'MsgBox("Error al crear la llave." & vbCrLf & ex.Message)
+            AddToLog("SelectFolder_DirRemover_OpenIn", "Error: " & ex.Message, True)
+        End Try
+    End Sub
+#End Region
+#Region "File"
+    Sub Create_OpenWithOther(Optional ByVal opt As SByte = 0)
+        Try
+            Dim Ruta1 As String = "SOFTWARE\\Classes\\*\\shell\\OW"
+            Dim Ruta2 As String = Ruta1 & "\\shell"
+            If opt = 0 Then
+                File_OpenWithOther = True
+            End If
+            If opt = 1 Then
+                Dim RegeditWriter1 As RegistryKey
+                RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OW_1", True)
+                If RegeditWriter1 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta2 & "\\OW_1")
+                    RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OW_1", True)
+                End If
+                RegeditWriter1.SetValue("", Main.tbFile_gbFile_1.Text, RegistryValueKind.String)
+                RegeditWriter1.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+
+                Dim RegeditWriter11 As RegistryKey
+                RegeditWriter11 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OW_1\\command", True)
+                If RegeditWriter11 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta2 & "\\OW_1\\command")
+                    RegeditWriter11 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OW_1\\command", True)
+                End If
+                RegeditWriter11.SetValue("", Main.tbFile_gbFile_11.Text, RegistryValueKind.String)
+                File_OpenWith_In1 = True
+            End If
+
+            If opt = 2 Then
+                Dim RegeditWriter2 As RegistryKey
+                RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OW_2", True)
+                If RegeditWriter2 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta2 & "\\OW_2")
+                    RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OW_2", True)
+                End If
+                RegeditWriter2.SetValue("", Main.tbFile_gbFile_2.Text, RegistryValueKind.String)
+                RegeditWriter2.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+
+                Dim RegeditWriter22 As RegistryKey
+                RegeditWriter22 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OW_2\\command", True)
+                If RegeditWriter22 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta2 & "\\OW_2\\command")
+                    RegeditWriter22 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OW_2\\command", True)
+                End If
+                RegeditWriter22.SetValue("", Main.tbFile_gbFile_22.Text, RegistryValueKind.String)
+                File_OpenWith_In2 = True
+            End If
+
+            If opt = 3 Then
+                Dim RegeditWriter3 As RegistryKey
+                RegeditWriter3 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OW_3", True)
+                If RegeditWriter3 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta2 & "\\OW_3")
+                    RegeditWriter3 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OW_3", True)
+                End If
+                RegeditWriter3.SetValue("", Main.tbFile_gbFile_3.Text, RegistryValueKind.String)
+                RegeditWriter3.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+
+                Dim RegeditWriter33 As RegistryKey
+                RegeditWriter33 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OW_3\\command", True)
+                If RegeditWriter33 Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey(Ruta2 & "\\OW_3\\command")
+                    RegeditWriter33 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OW_3\\command", True)
+                End If
+                RegeditWriter33.SetValue("", Main.tbFile_gbFile_33.Text, RegistryValueKind.String)
+                File_OpenWith_In3 = True
+            End If
+
+        Catch ex As Exception
+            'MsgBox("Error al crear la llave." & vbCrLf & ex.Message)
+            AddToLog("Create_OpenWithOther", "Error: " & ex.Message, True)
+        End Try
+    End Sub
+    Sub Remover_OpenWithOther(Optional ByVal opt As SByte = 0)
+        Try
+
+            Dim Ruta1 As String = "SOFTWARE\\Classes\\*\\shell"
+            Dim Ruta2 As String = Ruta1 & "\\OW\\shell"
+            If opt = 0 Then
+                File_OpenWithOther = False
+            End If
+            If opt = 1 Then
+                If File_OpenWith_In1 = True Then
+                    Dim RegeditWriter1 As RegistryKey
+                    RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                    If RegeditWriter1 Is Nothing Then
+                        Registry.CurrentUser.CreateSubKey(Ruta2)
+                        RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                    End If
+                    RegeditWriter1.DeleteSubKeyTree("OW_1")
+                    File_OpenWith_In1 = False
+                End If
+            End If
+
+            If opt = 2 Then
+                If File_OpenWith_In2 = True Then
+                    Dim RegeditWriter1 As RegistryKey
+                    RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                    If RegeditWriter1 Is Nothing Then
+                        Registry.CurrentUser.CreateSubKey(Ruta2)
+                        RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                    End If
+                    RegeditWriter1.DeleteSubKeyTree("OW_2")
+                    File_OpenWith_In2 = False
+                End If
+            End If
+
+            If opt = 3 Then
+                If File_OpenWith_In3 = True Then
+                    Dim RegeditWriter1 As RegistryKey
+                    RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                    If RegeditWriter1 Is Nothing Then
+                        Registry.CurrentUser.CreateSubKey(Ruta2)
+                        RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
+                    End If
+                    RegeditWriter1.DeleteSubKeyTree("OW_3")
+                    File_OpenWith_In3 = False
+                End If
+            End If
+        Catch ex As Exception
+            'MsgBox("Error al crear la llave." & vbCrLf & ex.Message)
+            AddToLog("Remover_OpenWith", "Error: " & ex.Message, True)
+        End Try
+    End Sub
+#End Region
+#End Region
+
+#Region "Menu Editor"
+
+#End Region
+
     Sub AddToLog(ByVal from As String, ByVal content As String, Optional ByVal flag As Boolean = False)
         Try
 
@@ -604,11 +989,32 @@ Module Complementos
 
 
     Public InsideFolder_Dir_OpenIn As Boolean = False
+    Public InsideFolder_Dir_OpenInOther As Boolean = False
+    Public InsideFolder_Dir_OpenIn1 As Boolean = False
+    Public InsideFolder_Dir_OpenIn2 As Boolean = False
+    Public InsideFolder_Dir_OpenIn3 As Boolean = False
+    Public InsideFolder_Dir_OpenIn1Name As String
+    Public InsideFolder_Dir_OpenIn2Name As String
+    Public InsideFolder_Dir_OpenIn3Name As String
+    Public InsideFolder_Dir_OpenIn1Value As String
+    Public InsideFolder_Dir_OpenIn2Value As String
+    Public InsideFolder_Dir_OpenIn3Value As String
     Public InsideFolder_Dir_OpenIn_InCommandPrompt As Boolean = False
     Public InsideFolder_Dir_OpenIn_InANewFolder As Boolean = False
     Public InsideFolder_Dir_OpenIn_InPowerShell As Boolean = False
     Public InsideFolder_Dir_GetLocation As Boolean = False
+
     Public SelectFolder_Dir_OpenIn As Boolean = False
+    Public SelectFolder_Dir_OpenInOther As Boolean = False
+    Public SelectFolder_Dir_OpenIn1 As Boolean = False
+    Public SelectFolder_Dir_OpenIn2 As Boolean = False
+    Public SelectFolder_Dir_OpenIn3 As Boolean = False
+    Public SelectFolder_Dir_OpenIn1Name As String
+    Public SelectFolder_Dir_OpenIn2Name As String
+    Public SelectFolder_Dir_OpenIn3Name As String
+    Public SelectFolder_Dir_OpenIn1Value As String
+    Public SelectFolder_Dir_OpenIn2Value As String
+    Public SelectFolder_Dir_OpenIn3Value As String
     Public SelectFolder_Dir_OpenIn_InCommandPrompt As Boolean = False
     Public SelectFolder_Dir_OpenIn_InANewFolder As Boolean = False
     Public SelectFolder_Dir_OpenIn_InPowerShell As Boolean = False
@@ -616,7 +1022,17 @@ Module Complementos
 
     Public File_GetLocation As Boolean = False
     Public File_OpenWith As Boolean = False
+    Public File_OpenWithOther As Boolean = False
     Public File_OpenWith_Notepad As Boolean = False
+    Public File_OpenWith_In1 As Boolean = False
+    Public File_OpenWith_In2 As Boolean = False
+    Public File_OpenWith_In3 As Boolean = False
+    Public File_OpenWith_In1Name As String
+    Public File_OpenWith_In2Name As String
+    Public File_OpenWith_In3Name As String
+    Public File_OpenWith_In1Value As String
+    Public File_OpenWith_In2Value As String
+    Public File_OpenWith_In3Value As String
 
     Sub SaveDB()
         Try
@@ -644,12 +1060,32 @@ Module Complementos
             'Directorios
             '   Inside a Folder
             ConfigDataRegeditWriter.SetValue("InsideFolder_Dir_OpenIn", InsideFolder_Dir_OpenIn, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("InsideFolder_Dir_OpenInOther", InsideFolder_Dir_OpenInOther, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("InsideFolder_Dir_OpenIn1", InsideFolder_Dir_OpenIn1, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("InsideFolder_Dir_OpenIn2", InsideFolder_Dir_OpenIn2, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("InsideFolder_Dir_OpenIn3", InsideFolder_Dir_OpenIn3, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("InsideFolder_Dir_OpenIn1Name", Main.tb_InsideAFolder_gbDir_1.Text, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("InsideFolder_Dir_OpenIn2Name", Main.tb_InsideAFolder_gbDir_2.Text, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("InsideFolder_Dir_OpenIn3Name", Main.tb_InsideAFolder_gbDir_3.Text, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("InsideFolder_Dir_OpenIn1Value", Main.tb_InsideAFolder_gbDir_11.Text, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("InsideFolder_Dir_OpenIn2Value", Main.tb_InsideAFolder_gbDir_22.Text, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("InsideFolder_Dir_OpenIn3Value", Main.tb_InsideAFolder_gbDir_33.Text, RegistryValueKind.String)
             ConfigDataRegeditWriter.SetValue("InsideFolder_Dir_OpenIn_InCommandPrompt", InsideFolder_Dir_OpenIn_InCommandPrompt, RegistryValueKind.String)
             ConfigDataRegeditWriter.SetValue("InsideFolder_Dir_OpenIn_InANewFolder", InsideFolder_Dir_OpenIn_InANewFolder, RegistryValueKind.String)
             ConfigDataRegeditWriter.SetValue("InsideFolder_Dir_OpenIn_InPowerShell", InsideFolder_Dir_OpenIn_InPowerShell, RegistryValueKind.String)
             ConfigDataRegeditWriter.SetValue("InsideFolder_Dir_GetLocation", InsideFolder_Dir_GetLocation, RegistryValueKind.String)
             '   Select a Folder
             ConfigDataRegeditWriter.SetValue("SelectFolder_Dir_OpenIn", SelectFolder_Dir_OpenIn, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("SelectFolder_Dir_OpenInOther", SelectFolder_Dir_OpenInOther, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("SelectFolder_Dir_OpenIn1", SelectFolder_Dir_OpenIn1, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("SelectFolder_Dir_OpenIn2", SelectFolder_Dir_OpenIn2, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("SelectFolder_Dir_OpenIn3", SelectFolder_Dir_OpenIn3, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("SelectFolder_Dir_OpenIn1Name", Main.tb_SelectAFolder_gbDir_1.Text, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("SelectFolder_Dir_OpenIn2Name", Main.tb_SelectAFolder_gbDir_2.Text, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("SelectFolder_Dir_OpenIn3Name", Main.tb_SelectAFolder_gbDir_3.Text, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("SelectFolder_Dir_OpenIn1Value", Main.tb_SelectAFolder_gbDir_11.Text, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("SelectFolder_Dir_OpenIn2Value", Main.tb_SelectAFolder_gbDir_22.Text, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("SelectFolder_Dir_OpenIn3Value", Main.tb_SelectAFolder_gbDir_33.Text, RegistryValueKind.String)
             ConfigDataRegeditWriter.SetValue("SelectFolder_Dir_OpenIn_InCommandPrompt", SelectFolder_Dir_OpenIn_InCommandPrompt, RegistryValueKind.String)
             ConfigDataRegeditWriter.SetValue("SelectFolder_Dir_OpenIn_InANewFolder", SelectFolder_Dir_OpenIn_InANewFolder, RegistryValueKind.String)
             ConfigDataRegeditWriter.SetValue("SelectFolder_Dir_OpenIn_InPowerShell", SelectFolder_Dir_OpenIn_InPowerShell, RegistryValueKind.String)
@@ -658,7 +1094,17 @@ Module Complementos
             'Archivos
             ConfigDataRegeditWriter.SetValue("File_GetLocation", File_GetLocation, RegistryValueKind.String)
             ConfigDataRegeditWriter.SetValue("File_OpenWith", File_OpenWith, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("File_OpenWithOther", File_OpenWithOther, RegistryValueKind.String)
             ConfigDataRegeditWriter.SetValue("File_OpenWith_Notepad", File_OpenWith_Notepad, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("File_OpenWith_In1", File_OpenWith_In1, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("File_OpenWith_In2", File_OpenWith_In2, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("File_OpenWith_In3", File_OpenWith_In3, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("File_OpenWith_In1Name", Main.tbFile_gbFile_1.Text, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("File_OpenWith_In2Name", Main.tbFile_gbFile_2.Text, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("File_OpenWith_In3Name", Main.tbFile_gbFile_3.Text, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("File_OpenWith_In1Value", Main.tbFile_gbFile_11.Text, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("File_OpenWith_In2Value", Main.tbFile_gbFile_22.Text, RegistryValueKind.String)
+            ConfigDataRegeditWriter.SetValue("File_OpenWith_In3Value", Main.tbFile_gbFile_33.Text, RegistryValueKind.String)
 
             LoadDB()
         Catch ex As Exception
@@ -666,7 +1112,6 @@ Module Complementos
             AddToLog("SaveDB", "Error: " & ex.Message, True)
         End Try
     End Sub
-
     Sub LoadDB()
         Try
 
@@ -680,25 +1125,59 @@ Module Complementos
             'Directorios
             '   Inside a Folder
             InsideFolder_Dir_OpenIn = Boolean.Parse(ConfigDataRegeditWriter.GetValue("InsideFolder_Dir_OpenIn"))
+            InsideFolder_Dir_OpenInOther = Boolean.Parse(ConfigDataRegeditWriter.GetValue("InsideFolder_Dir_OpenInOther"))
+            InsideFolder_Dir_OpenIn1 = Boolean.Parse(ConfigDataRegeditWriter.GetValue("InsideFolder_Dir_OpenIn1"))
+            InsideFolder_Dir_OpenIn2 = Boolean.Parse(ConfigDataRegeditWriter.GetValue("InsideFolder_Dir_OpenIn2"))
+            InsideFolder_Dir_OpenIn3 = Boolean.Parse(ConfigDataRegeditWriter.GetValue("InsideFolder_Dir_OpenIn3"))
+            InsideFolder_Dir_OpenIn1Name = ConfigDataRegeditWriter.GetValue("InsideFolder_Dir_OpenIn1Name")
+            InsideFolder_Dir_OpenIn2Name = ConfigDataRegeditWriter.GetValue("InsideFolder_Dir_OpenIn2Name")
+            InsideFolder_Dir_OpenIn3Name = ConfigDataRegeditWriter.GetValue("InsideFolder_Dir_OpenIn3Name")
+            InsideFolder_Dir_OpenIn1Value = ConfigDataRegeditWriter.GetValue("InsideFolder_Dir_OpenIn1Value")
+            InsideFolder_Dir_OpenIn2Value = ConfigDataRegeditWriter.GetValue("InsideFolder_Dir_OpenIn2Value")
+            InsideFolder_Dir_OpenIn3Value = ConfigDataRegeditWriter.GetValue("InsideFolder_Dir_OpenIn3Value")
             InsideFolder_Dir_OpenIn_InCommandPrompt = Boolean.Parse(ConfigDataRegeditWriter.GetValue("InsideFolder_Dir_OpenIn_InCommandPrompt"))
             InsideFolder_Dir_OpenIn_InANewFolder = Boolean.Parse(ConfigDataRegeditWriter.GetValue("InsideFolder_Dir_OpenIn_InANewFolder"))
             InsideFolder_Dir_OpenIn_InPowerShell = Boolean.Parse(ConfigDataRegeditWriter.GetValue("InsideFolder_Dir_OpenIn_InPowerShell"))
             InsideFolder_Dir_GetLocation = Boolean.Parse(ConfigDataRegeditWriter.GetValue("InsideFolder_Dir_GetLocation"))
             '   Select a Folder
             SelectFolder_Dir_OpenIn = Boolean.Parse(ConfigDataRegeditWriter.GetValue("SelectFolder_Dir_OpenIn"))
+            SelectFolder_Dir_OpenInOther = Boolean.Parse(ConfigDataRegeditWriter.GetValue("SelectFolder_Dir_OpenInOther"))
+            SelectFolder_Dir_OpenIn1 = Boolean.Parse(ConfigDataRegeditWriter.GetValue("SelectFolder_Dir_OpenIn1"))
+            SelectFolder_Dir_OpenIn2 = Boolean.Parse(ConfigDataRegeditWriter.GetValue("SelectFolder_Dir_OpenIn2"))
+            SelectFolder_Dir_OpenIn3 = Boolean.Parse(ConfigDataRegeditWriter.GetValue("SelectFolder_Dir_OpenIn3"))
+            SelectFolder_Dir_OpenIn1Name = ConfigDataRegeditWriter.GetValue("SelectFolder_Dir_OpenIn1Name")
+            SelectFolder_Dir_OpenIn2Name = ConfigDataRegeditWriter.GetValue("SelectFolder_Dir_OpenIn2Name")
+            SelectFolder_Dir_OpenIn3Name = ConfigDataRegeditWriter.GetValue("SelectFolder_Dir_OpenIn3Name")
+            SelectFolder_Dir_OpenIn1Value = ConfigDataRegeditWriter.GetValue("SelectFolder_Dir_OpenIn1Value")
+            SelectFolder_Dir_OpenIn2Value = ConfigDataRegeditWriter.GetValue("SelectFolder_Dir_OpenIn2Value")
+            SelectFolder_Dir_OpenIn3Value = ConfigDataRegeditWriter.GetValue("SelectFolder_Dir_OpenIn3Value")
             SelectFolder_Dir_OpenIn_InCommandPrompt = Boolean.Parse(ConfigDataRegeditWriter.GetValue("SelectFolder_Dir_OpenIn_InCommandPrompt"))
             SelectFolder_Dir_OpenIn_InANewFolder = Boolean.Parse(ConfigDataRegeditWriter.GetValue("SelectFolder_Dir_OpenIn_InANewFolder"))
             SelectFolder_Dir_OpenIn_InPowerShell = Boolean.Parse(ConfigDataRegeditWriter.GetValue("SelectFolder_Dir_OpenIn_InPowerShell"))
             SelectFolder_Dir_GetLocation = Boolean.Parse(ConfigDataRegeditWriter.GetValue("SelectFolder_Dir_GetLocation"))
 
+
             File_GetLocation = Boolean.Parse(ConfigDataRegeditWriter.GetValue("File_GetLocation"))
             File_OpenWith = Boolean.Parse(ConfigDataRegeditWriter.GetValue("File_OpenWith"))
+            File_OpenWithOther = Boolean.Parse(ConfigDataRegeditWriter.GetValue("File_OpenWithOther"))
             File_OpenWith_Notepad = Boolean.Parse(ConfigDataRegeditWriter.GetValue("File_OpenWith_Notepad"))
+            File_OpenWith_In1 = Boolean.Parse(ConfigDataRegeditWriter.GetValue("File_OpenWith_In1"))
+            File_OpenWith_In2 = Boolean.Parse(ConfigDataRegeditWriter.GetValue("File_OpenWith_In2"))
+            File_OpenWith_In3 = Boolean.Parse(ConfigDataRegeditWriter.GetValue("File_OpenWith_In3"))
+            File_OpenWith_In1Name = ConfigDataRegeditWriter.GetValue("File_OpenWith_In1Name")
+            File_OpenWith_In2Name = ConfigDataRegeditWriter.GetValue("File_OpenWith_In2Name")
+            File_OpenWith_In3Name = ConfigDataRegeditWriter.GetValue("File_OpenWith_In3Name")
+            File_OpenWith_In1Value = ConfigDataRegeditWriter.GetValue("File_OpenWith_In1Value")
+            File_OpenWith_In2Value = ConfigDataRegeditWriter.GetValue("File_OpenWith_In2Value")
+            File_OpenWith_In3Value = ConfigDataRegeditWriter.GetValue("File_OpenWith_In3Value")
 
             'Directorios
             '   Inside a Folder
             If InsideFolder_Dir_OpenIn = True Then
                 Main.cb_InsideAFolder_Dir_OpenIn.CheckState = CheckState.Checked
+            End If
+            If InsideFolder_Dir_OpenInOther = True Then
+                Main.cb_InsideAFolder_Dir_OpenIn_InOther.CheckState = CheckState.Checked
             End If
             If InsideFolder_Dir_OpenIn_InCommandPrompt = True Then
                 Main.cb_InsideAFolder_Dir_OpenIn_InCommandPrompt.CheckState = CheckState.Checked
@@ -712,10 +1191,28 @@ Module Complementos
             If InsideFolder_Dir_GetLocation = True Then
                 Main.cb_InsideAFolder_Dir_GetLocation.CheckState = CheckState.Checked
             End If
+            If InsideFolder_Dir_OpenIn1 = True Then
+                Main.cb_InsideAFolder_gbDir_1.CheckState = CheckState.Checked
+                Main.tb_InsideAFolder_gbDir_1.Text = InsideFolder_Dir_OpenIn1Name
+                Main.tb_InsideAFolder_gbDir_11.Text = InsideFolder_Dir_OpenIn1Value
+            End If
+            If InsideFolder_Dir_OpenIn2 = True Then
+                Main.cb_InsideAFolder_gbDir_3.CheckState = CheckState.Checked
+                Main.tb_InsideAFolder_gbDir_2.Text = InsideFolder_Dir_OpenIn2Name
+                Main.tb_InsideAFolder_gbDir_22.Text = InsideFolder_Dir_OpenIn2Value
+            End If
+            If InsideFolder_Dir_OpenIn3 = True Then
+                Main.cb_InsideAFolder_gbDir_3.CheckState = CheckState.Checked
+                Main.tb_InsideAFolder_gbDir_3.Text = InsideFolder_Dir_OpenIn3Name
+                Main.tb_InsideAFolder_gbDir_33.Text = InsideFolder_Dir_OpenIn3Value
+            End If
 
             '   Select a Folder
             If SelectFolder_Dir_OpenIn = True Then
                 Main.cb_SelectAFolder_Dir_OpenIn.CheckState = CheckState.Checked
+            End If
+            If SelectFolder_Dir_OpenInOther = True Then
+                Main.cb_SelectAFolder_Dir_OpenIn_InOther.CheckState = CheckState.Checked
             End If
             If SelectFolder_Dir_OpenIn_InCommandPrompt = True Then
                 Main.cb_SelectAFolder_Dir_OpenIn_InCommandPrompt.CheckState = CheckState.Checked
@@ -729,16 +1226,49 @@ Module Complementos
             If SelectFolder_Dir_GetLocation = True Then
                 Main.cb_SelectAFolder_Dir_GetLocation.CheckState = CheckState.Checked
             End If
+            If SelectFolder_Dir_OpenIn1 = True Then
+                Main.cb_SelectAFolder_gbDir_1.CheckState = CheckState.Checked
+                Main.tb_SelectAFolder_gbDir_1.Text = SelectFolder_Dir_OpenIn1Name
+                Main.tb_SelectAFolder_gbDir_11.Text = SelectFolder_Dir_OpenIn1Value
+            End If
+            If SelectFolder_Dir_OpenIn2 = True Then
+                Main.cb_SelectAFolder_gbDir_2.CheckState = CheckState.Checked
+                Main.tb_SelectAFolder_gbDir_2.Text = SelectFolder_Dir_OpenIn2Name
+                Main.tb_SelectAFolder_gbDir_22.Text = SelectFolder_Dir_OpenIn2Value
+            End If
+            If SelectFolder_Dir_OpenIn3 = True Then
+                Main.cb_SelectAFolder_gbDir_3.CheckState = CheckState.Checked
+                Main.tb_SelectAFolder_gbDir_3.Text = SelectFolder_Dir_OpenIn3Name
+                Main.tb_SelectAFolder_gbDir_33.Text = SelectFolder_Dir_OpenIn3Value
+            End If
 
-
+            'Archivos
             If File_GetLocation = True Then
                 Main.cbFile_GetLocation.CheckState = CheckState.Checked
             End If
             If File_OpenWith = True Then
                 Main.cbFile_OpenWith.CheckState = CheckState.Checked
             End If
+            If File_OpenWithOther = True Then
+                Main.cbFile_OpenWith_Other.CheckState = CheckState.Checked
+            End If
             If File_OpenWith_Notepad = True Then
                 Main.cbFile_OpenWith_Notepad.CheckState = CheckState.Checked
+            End If
+            If File_OpenWith_In1 = True Then
+                Main.cbFile_gbFile_1.CheckState = CheckState.Checked
+                Main.tbFile_gbFile_1.Text = File_OpenWith_In1Name
+                Main.tbFile_gbFile_11.Text = File_OpenWith_In1Value
+            End If
+            If File_OpenWith_In2 = True Then
+                Main.cbFile_gbFile_2.CheckState = CheckState.Checked
+                Main.tbFile_gbFile_2.Text = File_OpenWith_In2Name
+                Main.tbFile_gbFile_22.Text = File_OpenWith_In2Value
+            End If
+            If File_OpenWith_In3 = True Then
+                Main.cbFile_gbFile_3.CheckState = CheckState.Checked
+                Main.tbFile_gbFile_3.Text = File_OpenWith_In3Name
+                Main.tbFile_gbFile_33.Text = File_OpenWith_In3Value
             End If
         Catch ex As Exception
             'MsgBox("Error al cargar el estado." & vbCrLf & ex.Message)
@@ -763,7 +1293,7 @@ Module WindowsCalls
 
             For Each args As String In argumentos
                 If args.StartsWith("/WindowsCall") Then
-                    'Formato: "/WindosCall>GetLocation>C:\...\...\..."
+                    'Formato: "/WindowsCall>GetLocation>C:\...\...\..."
                     If newArg(1) = "GetLocation" Then
                         GetLocation(newArg(2)) 'Pass 15/08/2021 06:58 PM
                     End If
@@ -786,7 +1316,7 @@ Module WindowsCalls
         End Try
     End Sub 'Pass 15/08/2021 06:53 PM
 
-End Module 'En desarrollo
+End Module
 Module InstalledApplications
 
     Sub CheckForApps()

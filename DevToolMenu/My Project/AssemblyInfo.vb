@@ -9,8 +9,8 @@ Imports System.Runtime.InteropServices
 
 ' Revisar los valores de los atributos del ensamblado
 
-<Assembly: AssemblyTitle("More menus for developers")>
-<Assembly: AssemblyDescription("Windows context menu developer tools adder")>
+<Assembly: AssemblyTitle("Menus for developers")>
+<Assembly: AssemblyDescription("Windows context menu developer tool")>
 <Assembly: AssemblyCompany("CRZ Labs")>
 <Assembly: AssemblyProduct("DevToolMenu")>
 <Assembly: AssemblyCopyright("")>
@@ -32,6 +32,6 @@ Imports System.Runtime.InteropServices
 ' mediante el carácter '*', como se muestra a continuación:
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("1.0.2.0")>
-<Assembly: AssemblyFileVersion("24.08.20.21")>
+<Assembly: AssemblyVersion("1.1.0.0")>
+<Assembly: AssemblyFileVersion("08.09.20.21")>
 <Assembly: NeutralResourcesLanguage("en")>
