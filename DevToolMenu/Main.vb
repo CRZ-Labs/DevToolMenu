@@ -1,4 +1,7 @@
 ﻿Public Class Main
+    Dim MenusArray As New ArrayList
+
+    Dim keyType As String
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CommonStart()
@@ -19,6 +22,27 @@
             If My.Computer.FileSystem.DirectoryExists(DIRCommons & "\Menus") = False Then
                 My.Computer.FileSystem.CreateDirectory(DIRCommons & "\Menus")
             End If
+            If My.Computer.FileSystem.DirectoryExists(DIRCommons & "\Default") = False Then
+                My.Computer.FileSystem.CreateDirectory(DIRCommons & "\Default")
+            End If
+            TabPage4.Enabled = False
+            TabPage5.Enabled = False
+        Catch ex As Exception
+            AddToLog("CommonStart", "Error: " & ex.Message, True)
+        End Try
+    End Sub
+
+    Sub IndexTheMenus()
+        Try
+            MenusArray.Clear()
+            'Indexa los archivos .ini que se encuentren en el directorio \Menus
+            For Each Item As String In My.Computer.FileSystem.GetFiles(DIRCommons & "\Default")
+                Dim fileName As String = Item.Remove(0, Item.LastIndexOf("\") + 1)
+                fileName = fileName.Replace(".ini", Nothing)
+                If Item.Contains(".ini") Then
+                    MenusArray.Add(Item)
+                End If
+            Next
         Catch ex As Exception
             AddToLog("CommonStart", "Error: " & ex.Message, True)
         End Try
@@ -345,5 +369,18 @@
             tb_SelectAFolder_gbDir_3.Enabled = False
             tb_SelectAFolder_gbDir_33.Enabled = False
         End If
+    End Sub
+
+    Private Sub TreeView1_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TreeView1.AfterSelect
+        ReadDefaultMenu(TreeView1.SelectedNode.FullPath.Replace("\", ","))
+    End Sub
+
+    Private Sub btn_SaveAndApplyNormal_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        SaveDefaultMenuNormal(DIRCommons & "\Default\" & TreeView1.SelectedNode.FullPath.Replace("\", ",") & ".ini")
+        MainEditorRegeditNormal(DIRCommons & "\Default\" & TreeView1.SelectedNode.FullPath.Replace("\", ",") & ".ini")
+    End Sub
+    Private Sub btn_SaveAndApplyCascade_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        SaveDefaulMenuCascade(DIRCommons & "\Default\" & TreeView1.SelectedNode.FullPath.Replace("\", ",") & ".ini")
+        MainEditorRegeditCascade(DIRCommons & "\Default\" & TreeView1.SelectedNode.FullPath.Replace("\", ",") & ".ini")
     End Sub
 End Class
