@@ -18,13 +18,13 @@ Module Complementos
             '   4) Crear la llave SOFTWARE\\Classes\\Directory\\Background\\shell\\OI\\shell\\NewWindows\\command
             '       4.0) Escribir el valor "explorer.exe %V" en el valor defecto
 
-            Dim Ruta1 As String = "SOFTWARE\\Classes\\Directory\\Background\\shell\\OI"
+            Dim Ruta1 As String = Directorios_DentroDeCarpeta_OpenInKey
             Dim Ruta2 As String = Ruta1 & "\\shell"
-            Dim Ruta3 As String = Ruta2 & "\\In Command prompt"
+            Dim Ruta3 As String = Ruta2 & "\\" & Directorios_DentroDeCarpeta_OpenInCascade1Name
             Dim Ruta4 As String = Ruta3 & "\\command"
-            Dim Ruta5 As String = Ruta2 & "\\In a new windows"
+            Dim Ruta5 As String = Ruta2 & "\\" & Directorios_DentroDeCarpeta_OpenInCascade2Name
             Dim Ruta6 As String = Ruta5 & "\\command"
-            Dim Ruta7 As String = Ruta2 & "\\In PowerShell"
+            Dim Ruta7 As String = Ruta2 & "\\" & Directorios_DentroDeCarpeta_OpenInCascade3Name
             Dim Ruta8 As String = Ruta7 & "\\command"
 
             If opt = 0 Then
@@ -34,8 +34,8 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta1)
                     RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta1, True)
                 End If
-                RegeditWriter1.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String)
-                RegeditWriter1.SetValue("MUIVerb", "Open in", RegistryValueKind.String)
+                RegeditWriter1.SetValue("Icon", Directorios_DentroDeCarpeta_OpenInIcon, RegistryValueKind.String)
+                RegeditWriter1.SetValue("MUIVerb", Directorios_DentroDeCarpeta_OpenInName, RegistryValueKind.String)
                 RegeditWriter1.SetValue("subcommands", "", RegistryValueKind.String)
 
                 Dim RegeditWriter2 As RegistryKey
@@ -45,6 +45,7 @@ Module Complementos
                     RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
                 End If
                 InsideFolder_Dir_OpenIn = True
+                CreateDefaultMenuFiles("Directorios,Dentro de carpeta,Open in", False)
             End If
 
             If opt = 1 Then
@@ -54,8 +55,8 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta3)
                     RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta3, True)
                 End If
-                RegeditWriter1.SetValue("", "in Command prompt", RegistryValueKind.String)
-                RegeditWriter1.SetValue("Icon", "‪cmd.exe", RegistryValueKind.String)
+                RegeditWriter1.SetValue("", Directorios_DentroDeCarpeta_OpenInCascade1Name, RegistryValueKind.String)
+                RegeditWriter1.SetValue("Icon", Directorios_DentroDeCarpeta_OpenInCascade1Icon, RegistryValueKind.String)
 
                 Dim RegeditWriter2 As RegistryKey
                 RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta4, True)
@@ -63,7 +64,7 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta4)
                     RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta4, True)
                 End If
-                RegeditWriter2.SetValue("", """" & "cmd.exe" & """", RegistryValueKind.String)
+                RegeditWriter2.SetValue("", Directorios_DentroDeCarpeta_OpenInCascade1Value, RegistryValueKind.String)
                 InsideFolder_Dir_OpenIn_InCommandPrompt = True
             End If
 
@@ -74,8 +75,8 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta5)
                     RegeditWriter3 = Registry.CurrentUser.OpenSubKey(Ruta5, True)
                 End If
-                RegeditWriter3.SetValue("", "In a new windows", RegistryValueKind.String)
-                RegeditWriter3.SetValue("Icon", "explorer.exe", RegistryValueKind.String)
+                RegeditWriter3.SetValue("", Directorios_DentroDeCarpeta_OpenInCascade2Name, RegistryValueKind.String)
+                RegeditWriter3.SetValue("Icon", Directorios_DentroDeCarpeta_OpenInCascade2Icon, RegistryValueKind.String)
 
                 Dim RegeditWriter4 As RegistryKey
                 RegeditWriter4 = Registry.CurrentUser.OpenSubKey(Ruta6, True)
@@ -83,7 +84,7 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta6)
                     RegeditWriter4 = Registry.CurrentUser.OpenSubKey(Ruta6, True)
                 End If
-                RegeditWriter4.SetValue("", """" & "explorer.exe" & """" & "%V", RegistryValueKind.String)
+                RegeditWriter4.SetValue("", Directorios_DentroDeCarpeta_OpenInCascade2Value, RegistryValueKind.String)
                 InsideFolder_Dir_OpenIn_InANewFolder = True
             End If
 
@@ -94,8 +95,8 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta7)
                     RegeditWriter5 = Registry.CurrentUser.OpenSubKey(Ruta7, True)
                 End If
-                RegeditWriter5.SetValue("", "In PowerShell", RegistryValueKind.String)
-                RegeditWriter5.SetValue("Icon", "powershell.exe", RegistryValueKind.String)
+                RegeditWriter5.SetValue("", Directorios_DentroDeCarpeta_OpenInCascade3Name, RegistryValueKind.String)
+                RegeditWriter5.SetValue("Icon", Directorios_DentroDeCarpeta_OpenInCascade3Icon, RegistryValueKind.String)
 
                 Dim RegeditWriter6 As RegistryKey
                 RegeditWriter6 = Registry.CurrentUser.OpenSubKey(Ruta8, True)
@@ -103,7 +104,7 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta8)
                     RegeditWriter6 = Registry.CurrentUser.OpenSubKey(Ruta8, True)
                 End If
-                RegeditWriter6.SetValue("", """" & "powershell.exe" & """", RegistryValueKind.String)
+                RegeditWriter6.SetValue("", Directorios_DentroDeCarpeta_OpenInCascade3Value, RegistryValueKind.String)
                 InsideFolder_Dir_OpenIn_InPowerShell = True
             End If
         Catch ex As Exception
@@ -124,13 +125,13 @@ Module Complementos
             '   4) Crear la llave SOFTWARE\\Classes\\Directory\\shell\\OI\\shell\\NewWindows\\command
             '       4.0) Escribir el valor "explorer.exe %V" en el valor defecto
 
-            Dim Ruta1 As String = "SOFTWARE\\Classes\\Directory\\shell\\OI"
+            Dim Ruta1 As String = Directorios_SeleccionandoCarpeta_OpenInKey
             Dim Ruta2 As String = Ruta1 & "\\shell"
-            Dim Ruta3 As String = Ruta2 & "\\In Command prompt"
+            Dim Ruta3 As String = Ruta2 & "\\" & Directorios_SeleccionandoCarpeta_OpenInCascade1Name
             Dim Ruta4 As String = Ruta3 & "\\command"
-            Dim Ruta5 As String = Ruta2 & "\\In a new windows"
+            Dim Ruta5 As String = Ruta2 & "\\" & Directorios_SeleccionandoCarpeta_OpenInCascade2Name
             Dim Ruta6 As String = Ruta5 & "\\command"
-            Dim Ruta7 As String = Ruta2 & "\\In PowerShell"
+            Dim Ruta7 As String = Ruta2 & "\\" & Directorios_SeleccionandoCarpeta_OpenInCascade3Name
             Dim Ruta8 As String = Ruta7 & "\\command"
 
             If opt = 0 Then
@@ -140,8 +141,8 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta1)
                     RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta1, True)
                 End If
-                RegeditWriter1.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String)
-                RegeditWriter1.SetValue("MUIVerb", "Open in", RegistryValueKind.String)
+                RegeditWriter1.SetValue("Icon", Directorios_SeleccionandoCarpeta_OpenInIcon, RegistryValueKind.String)
+                RegeditWriter1.SetValue("MUIVerb", Directorios_SeleccionandoCarpeta_OpenInName, RegistryValueKind.String)
                 RegeditWriter1.SetValue("subcommands", "", RegistryValueKind.String)
 
                 Dim RegeditWriter2 As RegistryKey
@@ -151,6 +152,7 @@ Module Complementos
                     RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
                 End If
                 SelectFolder_Dir_OpenIn = True
+                CreateDefaultMenuFiles("Directorios,Seleccionando carpeta,Open in", False)
             End If
 
             If opt = 1 Then
@@ -160,8 +162,8 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta3)
                     RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta3, True)
                 End If
-                RegeditWriter1.SetValue("", "in Command prompt", RegistryValueKind.String)
-                RegeditWriter1.SetValue("Icon", "‪cmd.exe", RegistryValueKind.String)
+                RegeditWriter1.SetValue("", Directorios_SeleccionandoCarpeta_OpenInCascade1Name, RegistryValueKind.String)
+                RegeditWriter1.SetValue("Icon", Directorios_SeleccionandoCarpeta_OpenInCascade1Icon, RegistryValueKind.String)
 
                 Dim RegeditWriter2 As RegistryKey
                 RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta4, True)
@@ -169,7 +171,7 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta4)
                     RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta4, True)
                 End If
-                RegeditWriter2.SetValue("", """" & "cmd.exe" & """" & " /K " & """" & "cd %V" & """", RegistryValueKind.String)
+                RegeditWriter2.SetValue("", Directorios_SeleccionandoCarpeta_OpenInCascade1Value, RegistryValueKind.String)
                 SelectFolder_Dir_OpenIn_InCommandPrompt = True
             End If
 
@@ -180,8 +182,8 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta5)
                     RegeditWriter3 = Registry.CurrentUser.OpenSubKey(Ruta5, True)
                 End If
-                RegeditWriter3.SetValue("", "In a new windows", RegistryValueKind.String)
-                RegeditWriter3.SetValue("Icon", "explorer.exe", RegistryValueKind.String)
+                RegeditWriter3.SetValue("", Directorios_SeleccionandoCarpeta_OpenInCascade2Name, RegistryValueKind.String)
+                RegeditWriter3.SetValue("Icon", Directorios_SeleccionandoCarpeta_OpenInCascade2Icon, RegistryValueKind.String)
 
                 Dim RegeditWriter4 As RegistryKey
                 RegeditWriter4 = Registry.CurrentUser.OpenSubKey(Ruta6, True)
@@ -189,7 +191,7 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta6)
                     RegeditWriter4 = Registry.CurrentUser.OpenSubKey(Ruta6, True)
                 End If
-                RegeditWriter4.SetValue("", """" & "explorer.exe" & """" & "%V", RegistryValueKind.String)
+                RegeditWriter4.SetValue("", Directorios_SeleccionandoCarpeta_OpenInCascade2Value, RegistryValueKind.String)
                 SelectFolder_Dir_OpenIn_InANewFolder = True
             End If
 
@@ -200,8 +202,8 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta7)
                     RegeditWriter5 = Registry.CurrentUser.OpenSubKey(Ruta7, True)
                 End If
-                RegeditWriter5.SetValue("", "In PowerShell", RegistryValueKind.String)
-                RegeditWriter5.SetValue("Icon", "powershell.exe", RegistryValueKind.String)
+                RegeditWriter5.SetValue("", Directorios_SeleccionandoCarpeta_OpenInCascade3Name, RegistryValueKind.String)
+                RegeditWriter5.SetValue("Icon", Directorios_SeleccionandoCarpeta_OpenInCascade3Icon, RegistryValueKind.String)
 
                 Dim RegeditWriter6 As RegistryKey
                 RegeditWriter6 = Registry.CurrentUser.OpenSubKey(Ruta8, True)
@@ -209,7 +211,7 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta8)
                     RegeditWriter6 = Registry.CurrentUser.OpenSubKey(Ruta8, True)
                 End If
-                RegeditWriter6.SetValue("", """" & "powershell.exe" & """" & " -noexit -command " & """" & "cd %V" & """", RegistryValueKind.String)
+                RegeditWriter6.SetValue("", Directorios_SeleccionandoCarpeta_OpenInCascade3Value, RegistryValueKind.String)
                 SelectFolder_Dir_OpenIn_InPowerShell = True
             End If
         Catch ex As Exception
@@ -229,8 +231,8 @@ Module Complementos
 
 
 
-            Dim Ruta1 As String = "SOFTWARE\\Classes\\Directory\\Background\\shell"
-            Dim Ruta2 As String = Ruta1 & "\\Get Location"
+            Dim Ruta1 As String = Directorios_DentroDeCarpeta_GetLocationKey
+            Dim Ruta2 As String = Ruta1 & "\\" & Directorios_DentroDeCarpeta_GetLocationName
             Dim Ruta3 As String = Ruta2 & "\\command"
             If delete = False Then
                 Dim RegeditWriter1 As RegistryKey
@@ -239,8 +241,8 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta2)
                     RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
                 End If
-                RegeditWriter1.SetValue("", "Get Location", RegistryValueKind.String)
-                RegeditWriter1.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String)
+                RegeditWriter1.SetValue("", Directorios_DentroDeCarpeta_GetLocationName, RegistryValueKind.String)
+                RegeditWriter1.SetValue("Icon", Directorios_DentroDeCarpeta_GetLocationIcon, RegistryValueKind.String)
 
                 Dim RegeditWriter2 As RegistryKey
                 RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta3, True)
@@ -248,8 +250,9 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta3)
                     RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta3, True)
                 End If
-                RegeditWriter2.SetValue("", """" & Application.ExecutablePath & "" & """" & "/WindowsCall>GetLocation>%V", RegistryValueKind.String)
+                RegeditWriter2.SetValue("", Directorios_DentroDeCarpeta_GetLocationValue, RegistryValueKind.String)
                 InsideFolder_Dir_GetLocation = True
+                CreateDefaultMenuFiles("Directorios,Dentro de carpeta,Get Location", False)
             Else
                 'eliminar
                 Dim RegeditWriter1 As RegistryKey
@@ -257,8 +260,11 @@ Module Complementos
                 If RegeditWriter1 Is Nothing Then
                     Exit Sub
                 End If
-                RegeditWriter1.DeleteSubKeyTree("Get Location")
+                RegeditWriter1.DeleteSubKeyTree(Directorios_DentroDeCarpeta_GetLocationName)
                 InsideFolder_Dir_GetLocation = False
+                If My.Computer.FileSystem.FileExists(DIRCommons & "\Default\Directorios,Dentro de carpeta,Get Location.ini") = True Then
+                    My.Computer.FileSystem.DeleteFile(DIRCommons & "\Default\Directorios,Dentro de carpeta,Get Location.ini")
+                End If
             End If
         Catch ex As Exception
             'MsgBox("Error al crear la llave." & vbCrLf & ex.Message)
@@ -277,8 +283,8 @@ Module Complementos
 
 
 
-            Dim Ruta1 As String = "SOFTWARE\\Classes\\Directory\\shell"
-            Dim Ruta2 As String = Ruta1 & "\\Get Location"
+            Dim Ruta1 As String = Directorios_SeleccionandoCarpeta_GetLocationKey
+            Dim Ruta2 As String = Ruta1 & "\\" & Directorios_SeleccionandoCarpeta_GetLocationName
             Dim Ruta3 As String = Ruta2 & "\\command"
             If delete = False Then
                 Dim RegeditWriter1 As RegistryKey
@@ -287,8 +293,8 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta2)
                     RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
                 End If
-                RegeditWriter1.SetValue("", "Get Location", RegistryValueKind.String)
-                RegeditWriter1.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String)
+                RegeditWriter1.SetValue("", Directorios_SeleccionandoCarpeta_GetLocationName, RegistryValueKind.String)
+                RegeditWriter1.SetValue("Icon", Directorios_SeleccionandoCarpeta_GetLocationIcon, RegistryValueKind.String)
 
                 Dim RegeditWriter2 As RegistryKey
                 RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta3, True)
@@ -296,8 +302,9 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta3)
                     RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta3, True)
                 End If
-                RegeditWriter2.SetValue("", """" & Application.ExecutablePath & "" & """" & "/WindowsCall>GetLocation>%V", RegistryValueKind.String)
+                RegeditWriter2.SetValue("", Directorios_SeleccionandoCarpeta_GetLocationValue, RegistryValueKind.String)
                 SelectFolder_Dir_GetLocation = True
+                CreateDefaultMenuFiles("Directorios,Seleccionando carpeta,Get Location", False)
             Else
                 'eliminar
                 Dim RegeditWriter1 As RegistryKey
@@ -305,8 +312,11 @@ Module Complementos
                 If RegeditWriter1 Is Nothing Then
                     Exit Sub
                 End If
-                RegeditWriter1.DeleteSubKeyTree("Get Location")
+                RegeditWriter1.DeleteSubKeyTree(Directorios_SeleccionandoCarpeta_GetLocationName)
                 SelectFolder_Dir_GetLocation = False
+                If My.Computer.FileSystem.FileExists(DIRCommons & "\Default\Directorios,Seleccionando carpeta,Get Location.ini") = True Then
+                    My.Computer.FileSystem.DeleteFile(DIRCommons & "\Default\Directorios,Seleccionando carpeta,Get Location.ini")
+                End If
             End If
         Catch ex As Exception
             'MsgBox("Error al crear la llave." & vbCrLf & ex.Message)
@@ -339,7 +349,7 @@ Module Complementos
                     If RegeditWriter1 Is Nothing Then
                         Exit Sub
                     End If
-                    RegeditWriter1.DeleteSubKeyTree("in Command prompt")
+                    RegeditWriter1.DeleteSubKeyTree(Directorios_DentroDeCarpeta_OpenInCascade1Name)
                     InsideFolder_Dir_OpenIn_InCommandPrompt = False
                 End If
             End If
@@ -351,7 +361,7 @@ Module Complementos
                     If RegeditWriter3 Is Nothing Then
                         Exit Sub
                     End If
-                    RegeditWriter3.DeleteSubKeyTree("In a new windows")
+                    RegeditWriter3.DeleteSubKeyTree(Directorios_DentroDeCarpeta_OpenInCascade2Name)
                     InsideFolder_Dir_OpenIn_InANewFolder = False
                 End If
             End If
@@ -363,7 +373,7 @@ Module Complementos
                     If RegeditWriter5 Is Nothing Then
                         Exit Sub
                     End If
-                    RegeditWriter5.DeleteSubKeyTree("In PowerShell")
+                    RegeditWriter5.DeleteSubKeyTree(Directorios_DentroDeCarpeta_OpenInCascade3Name)
                     InsideFolder_Dir_OpenIn_InPowerShell = False
                 End If
             End If
@@ -397,7 +407,7 @@ Module Complementos
                     If RegeditWriter1 Is Nothing Then
                         Exit Sub
                     End If
-                    RegeditWriter1.DeleteSubKeyTree("in Command prompt")
+                    RegeditWriter1.DeleteSubKeyTree(Directorios_DentroDeCarpeta_OpenInCascade1Name)
                     SelectFolder_Dir_OpenIn_InCommandPrompt = False
                 End If
             End If
@@ -409,7 +419,7 @@ Module Complementos
                     If RegeditWriter3 Is Nothing Then
                         Exit Sub
                     End If
-                    RegeditWriter3.DeleteSubKeyTree("In a new windows")
+                    RegeditWriter3.DeleteSubKeyTree(Directorios_DentroDeCarpeta_OpenInCascade2Name)
                     SelectFolder_Dir_OpenIn_InANewFolder = False
                 End If
             End If
@@ -421,7 +431,7 @@ Module Complementos
                     If RegeditWriter5 Is Nothing Then
                         Exit Sub
                     End If
-                    RegeditWriter5.DeleteSubKeyTree("In PowerShell")
+                    RegeditWriter5.DeleteSubKeyTree(Directorios_DentroDeCarpeta_OpenInCascade3Name)
                     SelectFolder_Dir_OpenIn_InPowerShell = False
                 End If
             End If
@@ -446,7 +456,7 @@ Module Complementos
 
 
             Dim Ruta1 As String = "SOFTWARE\\Classes\\*\\shell"
-            Dim Ruta2 As String = Ruta1 & "\\Get Location"
+            Dim Ruta2 As String = Ruta1 & "\\" & Archivos_GetLocationName
             Dim Ruta3 As String = Ruta2 & "\\command"
             If delete = False Then
                 Dim RegeditWriter1 As RegistryKey
@@ -455,8 +465,8 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta2)
                     RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
                 End If
-                RegeditWriter1.SetValue("", "Get Location", RegistryValueKind.String)
-                RegeditWriter1.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String)
+                RegeditWriter1.SetValue("", Archivos_GetLocationName, RegistryValueKind.String)
+                RegeditWriter1.SetValue("Icon", Archivos_GetLocationIcon, RegistryValueKind.String)
 
                 Dim RegeditWriter2 As RegistryKey
                 RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta3, True)
@@ -464,8 +474,9 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta3)
                     RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta3, True)
                 End If
-                RegeditWriter2.SetValue("", """" & Application.ExecutablePath & "" & """" & "/WindowsCall>GetLocation>%V", RegistryValueKind.String)
+                RegeditWriter2.SetValue("", Archivos_GetLocationValue, RegistryValueKind.String)
                 File_GetLocation = True
+                CreateDefaultMenuFiles("Archivos,Get Location", False)
             Else
                 'eliminar
                 Dim RegeditWriter1 As RegistryKey
@@ -473,9 +484,13 @@ Module Complementos
                 If RegeditWriter1 Is Nothing Then
                     Exit Sub
                 End If
-                RegeditWriter1.DeleteSubKeyTree("Get Location")
+                RegeditWriter1.DeleteSubKeyTree(Archivos_GetLocationName)
                 File_GetLocation = False
+                If My.Computer.FileSystem.FileExists(DIRCommons & "\Default\Archivos,Get Location.ini") = True Then
+                    My.Computer.FileSystem.DeleteFile(DIRCommons & "\Default\Archivos,Get Location.ini")
+                End If
             End If
+
         Catch ex As Exception
             'MsgBox("Error al crear la llave." & vbCrLf & ex.Message)
             AddToLog("Create_GetLocation", "Error: " & ex.Message, True)
@@ -495,9 +510,9 @@ Module Complementos
             '   4) Crear la llave SOFTWARE\\Classes\\*\\shell\\OW\\shell\\Notepad\\command
             '       4.0) Escribir el valor "notepad.exe %L" en el valor defecto
 
-            Dim Ruta1 As String = "SOFTWARE\\Classes\\*\\shell\\OW"
+            Dim Ruta1 As String = Archivos_OpenInKey
             Dim Ruta2 As String = Ruta1 & "\\shell"
-            Dim Ruta3 As String = Ruta2 & "\\Notepad"
+            Dim Ruta3 As String = Ruta2 & "\\" & Archivos_OpenInCascade1Name
             Dim Ruta4 As String = Ruta3 & "\\command"
 
 
@@ -509,8 +524,8 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta1)
                     RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta1, True)
                 End If
-                RegeditWriter1.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String)
-                RegeditWriter1.SetValue("MUIVerb", "Open with", RegistryValueKind.String)
+                RegeditWriter1.SetValue("Icon", Archivos_OpenInIcon, RegistryValueKind.String)
+                RegeditWriter1.SetValue("MUIVerb", Archivos_OpenInName, RegistryValueKind.String)
                 RegeditWriter1.SetValue("subcommands", "", RegistryValueKind.String)
 
                 Dim RegeditWriter2 As RegistryKey
@@ -520,6 +535,7 @@ Module Complementos
                     RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
                 End If
                 File_OpenWith = True
+                CreateDefaultMenuFiles("Archivos,Open in")
             End If
 
             If opt = 1 Then 'Si se selecciona la opcion 1 (OpenWith>Notepad)
@@ -529,8 +545,8 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta3)
                     RegeditWriter3 = Registry.CurrentUser.OpenSubKey(Ruta3, True)
                 End If
-                RegeditWriter3.SetValue("", "Notepad", RegistryValueKind.String)
-                RegeditWriter3.SetValue("Icon", "notepad.exe", RegistryValueKind.String)
+                RegeditWriter3.SetValue("", Archivos_OpenInCascade1Name, RegistryValueKind.String)
+                RegeditWriter3.SetValue("Icon", Archivos_OpenInCascade1Icon, RegistryValueKind.String)
 
                 Dim RegeditWriter4 As RegistryKey
                 RegeditWriter4 = Registry.CurrentUser.OpenSubKey(Ruta4, True)
@@ -538,7 +554,7 @@ Module Complementos
                     Registry.CurrentUser.CreateSubKey(Ruta4)
                     RegeditWriter4 = Registry.CurrentUser.OpenSubKey(Ruta4, True)
                 End If
-                RegeditWriter4.SetValue("", """" & "notepad.exe" & """" & "%L", RegistryValueKind.String)
+                RegeditWriter4.SetValue("", Archivos_OpenInCascade1Value, RegistryValueKind.String)
                 File_OpenWith_Notepad = True
             End If
 
@@ -576,7 +592,7 @@ Module Complementos
                         Registry.CurrentUser.CreateSubKey(Ruta2)
                         RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta2, True)
                     End If
-                    RegeditWriter2.DeleteSubKeyTree("Notepad")
+                    RegeditWriter2.DeleteSubKeyTree(Archivos_OpenInCascade1Name)
                     File_OpenWith_Notepad = False
                 End If
             End If
@@ -593,7 +609,7 @@ Module Complementos
     Sub InsideFolder_DirCreate_OpenInOther(Optional ByVal opt As SByte = 0)
         Try
 
-            Dim Ruta1 As String = "SOFTWARE\\Classes\\Directory\\Background\\shell\\OI"
+            Dim Ruta1 As String = Directorios_DentroDeCarpeta_OpenInKey
             Dim Ruta2 As String = Ruta1 & "\\shell"
 
             If opt = 0 Then
@@ -608,7 +624,9 @@ Module Complementos
                     RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_1", True)
                 End If
                 RegeditWriter1.SetValue("", Main.tb_InsideAFolder_gbDir_1.Text, RegistryValueKind.String)
-                RegeditWriter1.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+                RegeditWriter1.SetValue("Icon", Directorios_DentroDeCarpeta_OpenInIcon, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+                Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Key = Ruta2 & "\\OI_1"
+                Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Name = Main.tb_InsideAFolder_gbDir_1.Text
 
                 Dim RegeditWriter11 As RegistryKey
                 RegeditWriter11 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_1\\command", True)
@@ -617,7 +635,10 @@ Module Complementos
                     RegeditWriter11 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_1\\command", True)
                 End If
                 RegeditWriter11.SetValue("", Main.tbFile_gbFile_11.Text, RegistryValueKind.String)
+                Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Value = Main.tbFile_gbFile_11.Text
+
                 InsideFolder_Dir_OpenIn1 = True
+                CreateDefaultMenuFiles("Directorios,Dentro de carpeta,Open in,Otros,Otro 1", False)
             End If
 
             If opt = 2 Then
@@ -628,7 +649,9 @@ Module Complementos
                     RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_2", True)
                 End If
                 RegeditWriter2.SetValue("", Main.tb_InsideAFolder_gbDir_2.Text, RegistryValueKind.String)
-                RegeditWriter2.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+                RegeditWriter2.SetValue("Icon", Directorios_DentroDeCarpeta_OpenInIcon, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+                Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Key = Ruta2 & "\\OI_2"
+                Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Name = Main.tb_InsideAFolder_gbDir_2.Text
 
                 Dim RegeditWriter22 As RegistryKey
                 RegeditWriter22 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_2\\command", True)
@@ -637,27 +660,35 @@ Module Complementos
                     RegeditWriter22 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_2\\command", True)
                 End If
                 RegeditWriter22.SetValue("", Main.tbFile_gbFile_22.Text, RegistryValueKind.String)
+                Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Value = Main.tbFile_gbFile_22.Text
+
                 InsideFolder_Dir_OpenIn2 = True
+                CreateDefaultMenuFiles("Directorios,Dentro de carpeta,Open in,Otros,Otro 2", False)
             End If
 
             If opt = 3 Then
                 Dim RegeditWriter3 As RegistryKey
-                RegeditWriter3 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_2", True)
+                RegeditWriter3 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_3", True)
                 If RegeditWriter3 Is Nothing Then
-                    Registry.CurrentUser.CreateSubKey(Ruta2 & "\\OI_2")
-                    RegeditWriter3 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_2", True)
+                    Registry.CurrentUser.CreateSubKey(Ruta2 & "\\OI_3")
+                    RegeditWriter3 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_3", True)
                 End If
                 RegeditWriter3.SetValue("", Main.tb_InsideAFolder_gbDir_3.Text, RegistryValueKind.String)
-                RegeditWriter3.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+                RegeditWriter3.SetValue("Icon", Directorios_DentroDeCarpeta_OpenInIcon, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+                Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Key = Ruta2 & "\\OI_3"
+                Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Name = Main.tb_InsideAFolder_gbDir_3.Text
 
                 Dim RegeditWriter33 As RegistryKey
-                RegeditWriter33 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_2\\command", True)
+                RegeditWriter33 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_3\\command", True)
                 If RegeditWriter33 Is Nothing Then
-                    Registry.CurrentUser.CreateSubKey(Ruta2 & "\\OI_2\\command")
-                    RegeditWriter33 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_2\\command", True)
+                    Registry.CurrentUser.CreateSubKey(Ruta2 & "\\OI_3\\command")
+                    RegeditWriter33 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_3\\command", True)
                 End If
                 RegeditWriter33.SetValue("", Main.tbFile_gbFile_33.Text, RegistryValueKind.String)
+                Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Value = Main.tbFile_gbFile_33.Text
+
                 InsideFolder_Dir_OpenIn3 = True
+                CreateDefaultMenuFiles("Directorios,Dentro de carpeta,Open in,Otros,Otro 2", False)
             End If
 
         Catch ex As Exception
@@ -719,7 +750,7 @@ Module Complementos
     Sub SelectFolder_DirCreate_OpenInOther(Optional ByVal opt As SByte = 0)
         Try
 
-            Dim Ruta1 As String = "SOFTWARE\\Classes\\Directory\\shell\\OI"
+            Dim Ruta1 As String = Directorios_SeleccionandoCarpeta_OpenInKey
             Dim Ruta2 As String = Ruta1 & "\\shell"
 
             If opt = 0 Then
@@ -734,7 +765,9 @@ Module Complementos
                     RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_1", True)
                 End If
                 RegeditWriter1.SetValue("", Main.tb_SelectAFolder_gbDir_1.Text, RegistryValueKind.String)
-                RegeditWriter1.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+                RegeditWriter1.SetValue("Icon", Directorios_SeleccionandoCarpeta_OpenInIcon, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+                Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Key = Ruta2 & "\\OI_1"
+                Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Name = Main.tb_SelectAFolder_gbDir_1.Text
 
                 Dim RegeditWriter11 As RegistryKey
                 RegeditWriter11 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_1\\command", True)
@@ -743,7 +776,10 @@ Module Complementos
                     RegeditWriter11 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_1\\command", True)
                 End If
                 RegeditWriter11.SetValue("", Main.tb_SelectAFolder_gbDir_11.Text, RegistryValueKind.String)
+                Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Value = Main.tb_SelectAFolder_gbDir_11.Text
+
                 SelectFolder_Dir_OpenIn1 = True
+                CreateDefaultMenuFiles("Directorios,Seleccionando carpeta,Open in,Otros,Otro 1", False)
             End If
 
             If opt = 2 Then
@@ -754,7 +790,9 @@ Module Complementos
                     RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_2", True)
                 End If
                 RegeditWriter2.SetValue("", Main.tb_SelectAFolder_gbDir_2.Text, RegistryValueKind.String)
-                RegeditWriter2.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+                RegeditWriter2.SetValue("Icon", Directorios_SeleccionandoCarpeta_OpenInIcon, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+                Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Key = Ruta2 & "\\OI_2"
+                Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Name = Main.tb_SelectAFolder_gbDir_2.Text
 
                 Dim RegeditWriter22 As RegistryKey
                 RegeditWriter22 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_2\\command", True)
@@ -763,7 +801,10 @@ Module Complementos
                     RegeditWriter22 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_2\\command", True)
                 End If
                 RegeditWriter22.SetValue("", Main.tb_SelectAFolder_gbDir_22.Text, RegistryValueKind.String)
+                Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Value = Main.tb_SelectAFolder_gbDir_22.Text
+
                 SelectFolder_Dir_OpenIn2 = True
+                CreateDefaultMenuFiles("Directorios,Seleccionando carpeta,Open in,Otros,Otro 2", False)
             End If
 
             If opt = 3 Then
@@ -774,7 +815,9 @@ Module Complementos
                     RegeditWriter3 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_3", True)
                 End If
                 RegeditWriter3.SetValue("", Main.tb_SelectAFolder_gbDir_3.Text, RegistryValueKind.String)
-                RegeditWriter3.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+                RegeditWriter3.SetValue("Icon", Directorios_SeleccionandoCarpeta_OpenInIcon, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+                Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Key = Ruta2 & "\\OI_3"
+                Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Name = Main.tb_SelectAFolder_gbDir_3.Text
 
                 Dim RegeditWriter33 As RegistryKey
                 RegeditWriter33 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_3\\command", True)
@@ -783,8 +826,12 @@ Module Complementos
                     RegeditWriter33 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OI_3\\command", True)
                 End If
                 RegeditWriter33.SetValue("", Main.tb_SelectAFolder_gbDir_33.Text, RegistryValueKind.String)
+                Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Value = Main.tb_SelectAFolder_gbDir_33.Text
+
                 SelectFolder_Dir_OpenIn3 = True
+                CreateDefaultMenuFiles("Directorios,Seleccionando carpeta,Open in,Otros,Otro 3", False)
             End If
+
         Catch ex As Exception
             'MsgBox("Error al crear la llave." & vbCrLf & ex.Message)
             AddToLog("SelectFolder_DirCreate_OpenIn", "Error: " & ex.Message, True)
@@ -844,7 +891,7 @@ Module Complementos
 #Region "File"
     Sub Create_OpenWithOther(Optional ByVal opt As SByte = 0)
         Try
-            Dim Ruta1 As String = "SOFTWARE\\Classes\\*\\shell\\OW"
+            Dim Ruta1 As String = Archivos_OpenInKey
             Dim Ruta2 As String = Ruta1 & "\\shell"
             If opt = 0 Then
                 File_OpenWithOther = True
@@ -857,7 +904,9 @@ Module Complementos
                     RegeditWriter1 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OW_1", True)
                 End If
                 RegeditWriter1.SetValue("", Main.tbFile_gbFile_1.Text, RegistryValueKind.String)
-                RegeditWriter1.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+                RegeditWriter1.SetValue("Icon", Archivos_OpenInIcon, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+                Archivos_OpenIn_Otro1Key = Ruta2 & "\\OW_1"
+                Archivos_OpenIn_Otro1Name = Main.tbFile_gbFile_1.Text
 
                 Dim RegeditWriter11 As RegistryKey
                 RegeditWriter11 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OW_1\\command", True)
@@ -866,7 +915,10 @@ Module Complementos
                     RegeditWriter11 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OW_1\\command", True)
                 End If
                 RegeditWriter11.SetValue("", Main.tbFile_gbFile_11.Text, RegistryValueKind.String)
+                Archivos_OpenIn_Otro1Value = Main.tbFile_gbFile_11.Text
+
                 File_OpenWith_In1 = True
+                CreateDefaultMenuFiles("Archivos,Open in,Otro 1", False)
             End If
 
             If opt = 2 Then
@@ -877,7 +929,9 @@ Module Complementos
                     RegeditWriter2 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OW_2", True)
                 End If
                 RegeditWriter2.SetValue("", Main.tbFile_gbFile_2.Text, RegistryValueKind.String)
-                RegeditWriter2.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+                RegeditWriter2.SetValue("Icon", Archivos_OpenInIcon, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+                Archivos_OpenIn_Otro2Key = Ruta2 & "\\OW_2"
+                Archivos_OpenIn_Otro2Name = Main.tbFile_gbFile_2.Text
 
                 Dim RegeditWriter22 As RegistryKey
                 RegeditWriter22 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OW_2\\command", True)
@@ -886,7 +940,10 @@ Module Complementos
                     RegeditWriter22 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OW_2\\command", True)
                 End If
                 RegeditWriter22.SetValue("", Main.tbFile_gbFile_22.Text, RegistryValueKind.String)
+                Archivos_OpenIn_Otro2Value = Main.tbFile_gbFile_22.Text
+
                 File_OpenWith_In2 = True
+                CreateDefaultMenuFiles("Archivos,Open in,Otro 2", False)
             End If
 
             If opt = 3 Then
@@ -897,7 +954,9 @@ Module Complementos
                     RegeditWriter3 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OW_3", True)
                 End If
                 RegeditWriter3.SetValue("", Main.tbFile_gbFile_3.Text, RegistryValueKind.String)
-                RegeditWriter3.SetValue("Icon", Application.ExecutablePath, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+                RegeditWriter3.SetValue("Icon", Archivos_OpenInIcon, RegistryValueKind.String) 'Temporalmente hasta encontrar una forma de poner un icono
+                Archivos_OpenIn_Otro3Key = Ruta2 & "\\OW_3"
+                Archivos_OpenIn_Otro3Name = Main.tbFile_gbFile_3.Text
 
                 Dim RegeditWriter33 As RegistryKey
                 RegeditWriter33 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OW_3\\command", True)
@@ -906,7 +965,10 @@ Module Complementos
                     RegeditWriter33 = Registry.CurrentUser.OpenSubKey(Ruta2 & "\\OW_3\\command", True)
                 End If
                 RegeditWriter33.SetValue("", Main.tbFile_gbFile_33.Text, RegistryValueKind.String)
+                Archivos_OpenIn_Otro3Value = Main.tbFile_gbFile_33.Text
+
                 File_OpenWith_In3 = True
+                CreateDefaultMenuFiles("Archivos,Open in,Otro 3", False)
             End If
 
         Catch ex As Exception
@@ -969,7 +1031,6 @@ Module Complementos
 #End Region
 
 #Region "Main Editor"
-
     Sub ReadDefaultMenu(ByVal name As String)
         Try
             Dim filePath As String = DIRCommons & "\Default\" & name & ".ini"
@@ -1072,21 +1133,23 @@ Module Complementos
         End Try
     End Sub
 
-    Sub CreateDefaultMenuFiles(ByVal name As String)
+    Sub CreateDefaultMenuFiles(ByVal name As String, Optional ByVal CheckIfExists As Boolean = True)
         Try
             Dim filePath As String = DIRCommons & "\Default\" & name & ".ini"
-            If My.Computer.FileSystem.FileExists(filePath) = True Then
-                My.Computer.FileSystem.DeleteFile(filePath)
+            If CheckIfExists = True Then
+                If My.Computer.FileSystem.FileExists(filePath) = True Then
+                    My.Computer.FileSystem.DeleteFile(filePath)
+                End If
             End If
 
             'Get Location
             If name = "Directorios,Dentro de carpeta,Get Location" Then
                 My.Computer.FileSystem.WriteAllText(filePath, "# DevToolMenu Config File" &
                     vbCrLf & "[BASICS]" &
-                    vbCrLf & "KEY=" & "SOFTWARE\\Classes\\Directory\\Background\\shell\\GL" &
-                    vbCrLf & "NAME=" & "Get Location" &
-                    vbCrLf & "ICON=" & Application.ExecutablePath &
-                    vbCrLf & "VALUE=" & """" & Application.ExecutablePath & "" & """" & "/WindowsCall>GetLocation>%V" &
+                    vbCrLf & "KEY=" & Directorios_DentroDeCarpeta_GetLocationKey & "\\" & Directorios_DentroDeCarpeta_GetLocationName &
+                    vbCrLf & "NAME=" & Directorios_DentroDeCarpeta_GetLocationName &
+                    vbCrLf & "ICON=" & Directorios_DentroDeCarpeta_GetLocationIcon &
+                    vbCrLf & "VALUE=" & Directorios_DentroDeCarpeta_GetLocationValue &
                     vbCrLf & "TYPE=Normal", False)
                 ReadDefaultMenuNormal(name)
             End If
@@ -1094,10 +1157,10 @@ Module Complementos
             If name = "Directorios,Seleccionando carpeta,Get Location" Then
                 My.Computer.FileSystem.WriteAllText(filePath, "# DevToolMenu Config File" &
                     vbCrLf & "[BASICS]" &
-                    vbCrLf & "KEY=" & "SOFTWARE\\Classes\\Directory\\shell\\GL" &
-                    vbCrLf & "NAME=" & "Get Location" &
-                    vbCrLf & "ICON=" & Application.ExecutablePath &
-                    vbCrLf & "VALUE=" & """" & Application.ExecutablePath & "" & """" & "/WindowsCall>GetLocation>%V" &
+                    vbCrLf & "KEY=" & Directorios_SeleccionandoCarpeta_GetLocationKey & "\\" & Directorios_SeleccionandoCarpeta_GetLocationName &
+                    vbCrLf & "NAME=" & Directorios_SeleccionandoCarpeta_GetLocationName &
+                    vbCrLf & "ICON=" & Directorios_SeleccionandoCarpeta_GetLocationIcon &
+                    vbCrLf & "VALUE=" & Directorios_SeleccionandoCarpeta_GetLocationValue &
                     vbCrLf & "TYPE=Normal", False)
                 ReadDefaultMenuNormal(name)
             End If
@@ -1105,10 +1168,10 @@ Module Complementos
             If name = "Archivos,Get Location" Then
                 My.Computer.FileSystem.WriteAllText(filePath, "# DevToolMenu Config File" &
                     vbCrLf & "[BASICS]" &
-                    vbCrLf & "KEY=" & "SOFTWARE\\Classes\\*\\shell\\GL" &
-                    vbCrLf & "NAME=" & "Get Location" &
-                    vbCrLf & "ICON=" & Application.ExecutablePath &
-                    vbCrLf & "VALUE=" & """" & Application.ExecutablePath & "" & """" & "/WindowsCall>GetLocation>%V" &
+                    vbCrLf & "KEY=" & Archivos_GetLocationKey &
+                    vbCrLf & "NAME=" & Archivos_GetLocationName &
+                    vbCrLf & "ICON=" & Archivos_GetLocationIcon &
+                    vbCrLf & "VALUE=" & Archivos_GetLocationValue &
                     vbCrLf & "TYPE=Normal", False)
                 ReadDefaultMenuNormal(name)
             End If
@@ -1117,70 +1180,158 @@ Module Complementos
             If name = "Directorios,Dentro de carpeta,Open in" Then
                 My.Computer.FileSystem.WriteAllText(filePath, "# DevToolMenu Config File" &
                     vbCrLf & "[BASICS]" &
-                    vbCrLf & "KEY=" & "SOFTWARE\\Classes\\Directory\\Background\\shell\\OI" &
-                    vbCrLf & "NAME=" & "Open in" &
-                    vbCrLf & "ICON=" & Application.ExecutablePath &
+                    vbCrLf & "KEY=" & Directorios_DentroDeCarpeta_OpenInKey &
+                    vbCrLf & "NAME=" & Directorios_DentroDeCarpeta_OpenInName &
+                    vbCrLf & "ICON=" & Directorios_DentroDeCarpeta_OpenInIcon &
                     vbCrLf & "TYPE=Cascade" &
                     vbCrLf & "COUNT=3" &
                     vbCrLf & "[CASCADE.1]" &
-                    vbCrLf & "NAME=" & "In Command prompt" &
-                    vbCrLf & "ICON=" & "cmd.exe" &
-                    vbCrLf & "VALUE=" & """" & "cmd.exe" & """" &
+                    vbCrLf & "NAME=" & Directorios_DentroDeCarpeta_OpenInCascade1Name &
+                    vbCrLf & "ICON=" & Directorios_DentroDeCarpeta_OpenInCascade1Icon &
+                    vbCrLf & "VALUE=" & Directorios_DentroDeCarpeta_OpenInCascade1Value &
                     vbCrLf & "[CASCADE.2]" &
-                    vbCrLf & "NAME=" & "In a new windows" &
-                    vbCrLf & "ICON=" & "explorer.exe" &
-                    vbCrLf & "VALUE=" & """" & "explorer.exe" & """" & "%V" &
+                    vbCrLf & "NAME=" & Directorios_DentroDeCarpeta_OpenInCascade2Name &
+                    vbCrLf & "ICON=" & Directorios_DentroDeCarpeta_OpenInCascade2Icon &
+                    vbCrLf & "VALUE=" & Directorios_DentroDeCarpeta_OpenInCascade2Value &
                     vbCrLf & "[CASCADE.3]" &
-                    vbCrLf & "NAME=" & "In PowerShell" &
-                    vbCrLf & "ICON=" & "powershell.exe" &
-                    vbCrLf & "VALUE=" & """" & "powershell.exe" & """", False)
+                    vbCrLf & "NAME=" & Directorios_DentroDeCarpeta_OpenInCascade3Name &
+                    vbCrLf & "ICON=" & Directorios_DentroDeCarpeta_OpenInCascade3Icon &
+                    vbCrLf & "VALUE=" & Directorios_DentroDeCarpeta_OpenInCascade3Value, False)
                 ReadDefaultMenuCascade(name)
             End If
 
             If name = "Directorios,Seleccionando carpeta,Open in" Then
                 My.Computer.FileSystem.WriteAllText(filePath, "# DevToolMenu Config File" &
                     vbCrLf & "[BASICS]" &
-                    vbCrLf & "KEY=" & "SOFTWARE\\Classes\\Directory\\shell\\OI" &
-                    vbCrLf & "NAME=" & "Open in" &
-                    vbCrLf & "ICON=" & Application.ExecutablePath &
+                    vbCrLf & "KEY=" & Directorios_SeleccionandoCarpeta_OpenInKey &
+                    vbCrLf & "NAME=" & Directorios_SeleccionandoCarpeta_OpenInName &
+                    vbCrLf & "ICON=" & Directorios_SeleccionandoCarpeta_OpenInIcon &
                     vbCrLf & "TYPE=Cascade" &
                     vbCrLf & "COUNT=3" &
                     vbCrLf & "[CASCADE.1]" &
-                    vbCrLf & "NAME=" & "In Command prompt" &
-                    vbCrLf & "ICON=" & "cmd.exe" &
-                    vbCrLf & "VALUE=" & """" & "cmd.exe" & """" & " /K " & """" & "cd %V" & """" &
+                    vbCrLf & "NAME=" & Directorios_SeleccionandoCarpeta_OpenInCascade1Name &
+                    vbCrLf & "ICON=" & Directorios_SeleccionandoCarpeta_OpenInCascade1Icon &
+                    vbCrLf & "VALUE=" & Directorios_SeleccionandoCarpeta_OpenInCascade1Value &
                     vbCrLf & "[CASCADE.2]" &
-                    vbCrLf & "NAME=" & "In a new windows" &
-                    vbCrLf & "ICON=" & "explorer.exe" &
-                    vbCrLf & "VALUE=" & """" & "explorer.exe" & """" & "%V" &
+                    vbCrLf & "NAME=" & Directorios_SeleccionandoCarpeta_OpenInCascade2Name &
+                    vbCrLf & "ICON=" & Directorios_SeleccionandoCarpeta_OpenInCascade2Icon &
+                    vbCrLf & "VALUE=" & Directorios_SeleccionandoCarpeta_OpenInCascade2Value &
                     vbCrLf & "[CASCADE.3]" &
-                    vbCrLf & "NAME=" & "In PowerShell" &
-                    vbCrLf & "ICON=" & "powershell.exe" &
-                    vbCrLf & "VALUE=" & """" & "powershell.exe" & """" & " -noexit -command " & """" & "cd %V" & """", False)
+                    vbCrLf & "NAME=" & Directorios_SeleccionandoCarpeta_OpenInCascade3Name &
+                    vbCrLf & "ICON=" & Directorios_SeleccionandoCarpeta_OpenInCascade3Icon &
+                    vbCrLf & "VALUE=" & Directorios_SeleccionandoCarpeta_OpenInCascade3Value, False)
                 ReadDefaultMenuCascade(name)
             End If
 
             If name = "Archivos,Open in" Then
                 My.Computer.FileSystem.WriteAllText(filePath, "# DevToolMenu Config File" &
                     vbCrLf & "[BASICS]" &
-                    vbCrLf & "KEY=" & "SOFTWARE\\Classes\\*\\shell\\OW" &
-                    vbCrLf & "NAME=" & "Open with" &
-                    vbCrLf & "ICON=" & Application.ExecutablePath &
+                    vbCrLf & "KEY=" & Archivos_OpenInKey &
+                    vbCrLf & "NAME=" & Archivos_OpenInName &
+                    vbCrLf & "ICON=" & Archivos_OpenInIcon &
                     vbCrLf & "TYPE=Cascade" &
                     vbCrLf & "COUNT=3" &
                     vbCrLf & "[CASCADE.1]" &
-                    vbCrLf & "NAME=" & "Notepad" &
-                    vbCrLf & "ICON=" & "notepad.exe" &
-                    vbCrLf & "VALUE=" & """" & "notepad.exe" & """" & "%L" &
+                    vbCrLf & "NAME=" & Archivos_OpenInCascade1Name &
+                    vbCrLf & "ICON=" & Archivos_OpenInCascade1Icon &
+                    vbCrLf & "VALUE=" & Archivos_OpenInCascade1Value &
                     vbCrLf & "[CASCADE.2]" &
-                    vbCrLf & "NAME=" &
-                    vbCrLf & "ICON=" &
-                    vbCrLf & "VALUE=" &
+                    vbCrLf & "NAME=" & Archivos_OpenInCascade2Name &
+                    vbCrLf & "ICON=" & Archivos_OpenInCascade2Icon &
+                    vbCrLf & "VALUE=" & Archivos_OpenInCascade2Value &
                     vbCrLf & "[CASCADE.3]" &
-                    vbCrLf & "NAME=" &
-                    vbCrLf & "ICON=" &
-                    vbCrLf & "VALUE=", False)
+                    vbCrLf & "NAME=" & Archivos_OpenInCascade3Name &
+                    vbCrLf & "ICON=" & Archivos_OpenInCascade3Icon &
+                    vbCrLf & "VALUE=" & Archivos_OpenInCascade3Value, False)
                 ReadDefaultMenuCascade(name)
+            End If
+
+            'Open in>Other
+            If name = "Directorios,Dentro de carpeta,Open in,Otros,Otro 1" Then
+                My.Computer.FileSystem.WriteAllText(filePath, "# DevToolMenu Config File" &
+                   vbCrLf & "[BASICS]" &
+                   vbCrLf & "KEY=" & Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Key &
+                   vbCrLf & "NAME=" & Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Name &
+                   vbCrLf & "ICON=" & Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Icon &
+                   vbCrLf & "VALUE=" & Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Value &
+                   vbCrLf & "TYPE=Normal", False)
+                ReadDefaultMenuNormal(name)
+            ElseIf name = "Directorios,Dentro de carpeta,Open in,Otros,Otro 2" Then
+                My.Computer.FileSystem.WriteAllText(filePath, "# DevToolMenu Config File" &
+                   vbCrLf & "[BASICS]" &
+                   vbCrLf & "KEY=" & Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Key &
+                   vbCrLf & "NAME=" & Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Name &
+                   vbCrLf & "ICON=" & Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Icon &
+                   vbCrLf & "VALUE=" & Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Value &
+                   vbCrLf & "TYPE=Normal", False)
+                ReadDefaultMenuNormal(name)
+            ElseIf name = "Directorios,Dentro de carpeta,Open in,Otros,Otro 3" Then
+                My.Computer.FileSystem.WriteAllText(filePath, "# DevToolMenu Config File" &
+                   vbCrLf & "[BASICS]" &
+                   vbCrLf & "KEY=" & Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Key &
+                   vbCrLf & "NAME=" & Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Name &
+                   vbCrLf & "ICON=" & Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Icon &
+                   vbCrLf & "VALUE=" & Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Value &
+                   vbCrLf & "TYPE=Normal", False)
+                ReadDefaultMenuNormal(name)
+            End If
+
+            If name = "Directorios,Seleccionando carpeta,Open in,Otros,Otro 1" Then
+                My.Computer.FileSystem.WriteAllText(filePath, "# DevToolMenu Config File" &
+                   vbCrLf & "[BASICS]" &
+                   vbCrLf & "KEY=" & Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Key &
+                   vbCrLf & "NAME=" & Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Name &
+                   vbCrLf & "ICON=" & Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Icon &
+                   vbCrLf & "VALUE=" & Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Value &
+                   vbCrLf & "TYPE=Normal", False)
+                ReadDefaultMenuNormal(name)
+            ElseIf name = "Directorios,Seleccionando carpeta,Open in,Otros,Otro 2" Then
+                My.Computer.FileSystem.WriteAllText(filePath, "# DevToolMenu Config File" &
+                   vbCrLf & "[BASICS]" &
+                   vbCrLf & "KEY=" & Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Key &
+                   vbCrLf & "NAME=" & Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Name &
+                   vbCrLf & "ICON=" & Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Icon &
+                   vbCrLf & "VALUE=" & Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Value &
+                   vbCrLf & "TYPE=Normal", False)
+                ReadDefaultMenuNormal(name)
+            ElseIf name = "Directorios,Seleccionando carpeta,Open in,Otros,Otro 3" Then
+                My.Computer.FileSystem.WriteAllText(filePath, "# DevToolMenu Config File" &
+                   vbCrLf & "[BASICS]" &
+                   vbCrLf & "KEY=" & Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Key &
+                   vbCrLf & "NAME=" & Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Name &
+                   vbCrLf & "ICON=" & Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Icon &
+                   vbCrLf & "VALUE=" & Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Value &
+                   vbCrLf & "TYPE=Normal", False)
+                ReadDefaultMenuNormal(name)
+            End If
+
+            If name = "Archivos,Open in,Otro 1" Then
+                My.Computer.FileSystem.WriteAllText(filePath, "# DevToolMenu Config File" &
+                   vbCrLf & "[BASICS]" &
+                   vbCrLf & "KEY=" & Archivos_OpenIn_Otro1Key &
+                   vbCrLf & "NAME=" & Archivos_OpenIn_Otro1Name &
+                   vbCrLf & "ICON=" & Archivos_OpenIn_Otro1Icon &
+                   vbCrLf & "VALUE=" & Archivos_OpenIn_Otro1Value &
+                   vbCrLf & "TYPE=Normal", False)
+                ReadDefaultMenuNormal(name)
+            ElseIf name = "Archivos,Open in,Otro 2" Then
+                My.Computer.FileSystem.WriteAllText(filePath, "# DevToolMenu Config File" &
+                   vbCrLf & "[BASICS]" &
+                   vbCrLf & "KEY=" & Archivos_OpenIn_Otro2Key &
+                   vbCrLf & "NAME=" & Archivos_OpenIn_Otro2Name &
+                   vbCrLf & "ICON=" & Archivos_OpenIn_Otro2Icon &
+                   vbCrLf & "VALUE=" & Archivos_OpenIn_Otro2Value &
+                   vbCrLf & "TYPE=Normal", False)
+                ReadDefaultMenuNormal(name)
+            ElseIf name = "Archivos,Open in,Otro 3" Then
+                My.Computer.FileSystem.WriteAllText(filePath, "# DevToolMenu Config File" &
+                   vbCrLf & "[BASICS]" &
+                   vbCrLf & "KEY=" & Archivos_OpenIn_Otro3Key &
+                   vbCrLf & "NAME=" & Archivos_OpenIn_Otro3Name &
+                   vbCrLf & "ICON=" & Archivos_OpenIn_Otro3Icon &
+                   vbCrLf & "VALUE=" & Archivos_OpenIn_Otro3Value &
+                   vbCrLf & "TYPE=Normal", False)
+                ReadDefaultMenuNormal(name)
             End If
         Catch ex As Exception
             AddToLog("CreateDefaultMenuFiles", "Error: " & ex.Message, True)
@@ -1312,6 +1463,108 @@ Module Complementos
         End Try
     End Sub
 
+    'Registros
+    'Public Directorios_DentroDeCarpeta_GetLocationKey As String = "SOFTWARE\\Classes\\Directory\\Background\\shell\\GL" 'ORIGINAL, no se la razon del porque este es asi en dos lados distintos
+    Public Directorios_DentroDeCarpeta_GetLocationKey As String = "SOFTWARE\\Classes\\Directory\\Background\\shell"
+    Public Directorios_DentroDeCarpeta_GetLocationName As String = "Get Location"
+    Public Directorios_DentroDeCarpeta_GetLocationIcon As String = Application.ExecutablePath
+    Public Directorios_DentroDeCarpeta_GetLocationValue As String = """" & Application.ExecutablePath & "" & """" & "/WindowsCall>GetLocation>%V"
+
+    'Public Directorios_SeleccionandoCarpeta_GetLocationKey As String = "SOFTWARE\\Classes\\Directory\\shell\\GL" 'lo mismo :/
+    Public Directorios_SeleccionandoCarpeta_GetLocationKey As String = "SOFTWARE\\Classes\\Directory\\shell"
+    Public Directorios_SeleccionandoCarpeta_GetLocationName As String = "Get Location"
+    Public Directorios_SeleccionandoCarpeta_GetLocationIcon As String = Application.ExecutablePath
+    Public Directorios_SeleccionandoCarpeta_GetLocationValue As String = """" & Application.ExecutablePath & "" & """" & "/WindowsCall>GetLocation>%V"
+
+    Public Archivos_GetLocationKey As String = "SOFTWARE\\Classes\\*\\shell\\GL"
+    Public Archivos_GetLocationName As String = "Get Location"
+    Public Archivos_GetLocationIcon As String = Application.ExecutablePath
+    Public Archivos_GetLocationValue As String = """" & Application.ExecutablePath & "" & """" & "/WindowsCall>GetLocation>%V"
+
+    Public Directorios_DentroDeCarpeta_OpenInKey As String = "SOFTWARE\\Classes\\Directory\\Background\\shell\\OI"
+    Public Directorios_DentroDeCarpeta_OpenInName As String = "Open in"
+    Public Directorios_DentroDeCarpeta_OpenInIcon As String = Application.ExecutablePath
+    Public Directorios_DentroDeCarpeta_OpenInCascade1Name As String = "In Command prompt"
+    Public Directorios_DentroDeCarpeta_OpenInCascade1Icon As String = "cmd.exe"
+    Public Directorios_DentroDeCarpeta_OpenInCascade1Value As String = """" & "cmd.exe" & """"
+    Public Directorios_DentroDeCarpeta_OpenInCascade2Name As String = "In a new windows"
+    Public Directorios_DentroDeCarpeta_OpenInCascade2Icon As String = "explorer.exe"
+    Public Directorios_DentroDeCarpeta_OpenInCascade2Value As String = """" & "explorer.exe" & """" & "%V"
+    Public Directorios_DentroDeCarpeta_OpenInCascade3Name As String = "In PowerShell"
+    Public Directorios_DentroDeCarpeta_OpenInCascade3Icon As String = "powershell.exe"
+    Public Directorios_DentroDeCarpeta_OpenInCascade3Value As String = """" & "powershell.exe" & """"
+
+    Public Directorios_SeleccionandoCarpeta_OpenInKey As String = "SOFTWARE\\Classes\\Directory\\shell\\OI"
+    Public Directorios_SeleccionandoCarpeta_OpenInName As String = "Open in"
+    Public Directorios_SeleccionandoCarpeta_OpenInIcon As String = Application.ExecutablePath
+    Public Directorios_SeleccionandoCarpeta_OpenInCascade1Name As String = "In Command prompt"
+    Public Directorios_SeleccionandoCarpeta_OpenInCascade1Icon As String = "cmd.exe"
+    Public Directorios_SeleccionandoCarpeta_OpenInCascade1Value As String = """" & "cmd.exe" & """" & " /K " & """" & "cd %V" & """"
+    Public Directorios_SeleccionandoCarpeta_OpenInCascade2Name As String = "In a new windows"
+    Public Directorios_SeleccionandoCarpeta_OpenInCascade2Icon As String = "explorer.exe"
+    Public Directorios_SeleccionandoCarpeta_OpenInCascade2Value As String = """" & "explorer.exe" & """" & "%V"
+    Public Directorios_SeleccionandoCarpeta_OpenInCascade3Name As String = "In PowerShell"
+    Public Directorios_SeleccionandoCarpeta_OpenInCascade3Icon As String = "powershell.exe"
+    Public Directorios_SeleccionandoCarpeta_OpenInCascade3Value As String = """" & "powershell.exe" & """" & " -noexit -command " & """" & "cd %V" & """"
+
+    Public Archivos_OpenInKey As String = "SOFTWARE\\Classes\\*\\shell\\OW"
+    Public Archivos_OpenInName As String = "Open with"
+    Public Archivos_OpenInIcon As String = Application.ExecutablePath
+    Public Archivos_OpenInCascade1Name As String = "Notepad"
+    Public Archivos_OpenInCascade1Icon As String = "notepad.exe"
+    Public Archivos_OpenInCascade1Value As String = """" & "notepad.exe" & """" & "%L"
+    Public Archivos_OpenInCascade2Name As String = Nothing
+    Public Archivos_OpenInCascade2Icon As String = Application.ExecutablePath
+    Public Archivos_OpenInCascade2Value As String = Nothing
+    Public Archivos_OpenInCascade3Name As String = Nothing
+    Public Archivos_OpenInCascade3Icon As String = Application.ExecutablePath
+    Public Archivos_OpenInCascade3Value As String = Nothing
+
+    Public Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Key As String = "SOFTWARE\\Classes\\Directory\\Background\\shell\\OI\\shell\\OI_1"
+    Public Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Name As String = Nothing
+    Public Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Icon As String = Application.ExecutablePath
+    Public Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Value As String = Nothing
+
+    Public Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Key As String = "SOFTWARE\\Classes\\Directory\\Background\\shell\\OI\\shell\\OI_2"
+    Public Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Name As String = Nothing
+    Public Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Icon As String = Application.ExecutablePath
+    Public Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Value As String = Nothing
+
+    Public Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Key As String = "SOFTWARE\\Classes\\Directory\\Background\\shell\\OI\\shell\\OI_3"
+    Public Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Name As String = Nothing
+    Public Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Icon As String = Application.ExecutablePath
+    Public Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Value As String = Nothing
+
+    Public Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Key As String = "SOFTWARE\\Classes\\Directory\\shell\\OI\\shell\\OI_1"
+    Public Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Name As String = Nothing
+    Public Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Icon As String = Application.ExecutablePath
+    Public Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Value As String = Nothing
+
+    Public Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Key As String = "SOFTWARE\\Classes\\Directory\\shell\\OI\\shell\\OI_2"
+    Public Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Name As String = Nothing
+    Public Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Icon As String = Application.ExecutablePath
+    Public Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Value As String = Nothing
+
+    Public Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Key As String = "SOFTWARE\\Classes\\Directory\\shell\\OI\\shell\\OI_3"
+    Public Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Name As String = Nothing
+    Public Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Icon As String = Application.ExecutablePath
+    Public Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Value As String = Nothing
+
+    Public Archivos_OpenIn_Otro1Key As String = "SOFTWARE\\Classes\\*\\shell\\OW\\shell\\OW_1"
+    Public Archivos_OpenIn_Otro1Name As String = Nothing
+    Public Archivos_OpenIn_Otro1Icon As String = Application.ExecutablePath
+    Public Archivos_OpenIn_Otro1Value As String = Nothing
+
+    Public Archivos_OpenIn_Otro2Key As String = "SOFTWARE\\Classes\\*\\shell\\OW\\shell\\OW_2"
+    Public Archivos_OpenIn_Otro2Name As String = Nothing
+    Public Archivos_OpenIn_Otro2Icon As String = Application.ExecutablePath
+    Public Archivos_OpenIn_Otro2Value As String = Nothing
+
+    Public Archivos_OpenIn_Otro3Key As String = "SOFTWARE\\Classes\\*\\shell\\OW\\shell\\OW_3"
+    Public Archivos_OpenIn_Otro3Name As String = Nothing
+    Public Archivos_OpenIn_Otro3Icon As String = Application.ExecutablePath
+    Public Archivos_OpenIn_Otro3Value As String = Nothing
+
     'Variables
     Public InsideFolder_Dir_OpenIn As Boolean = False
     Public InsideFolder_Dir_OpenInOther As Boolean = False
@@ -1356,6 +1609,263 @@ Module Complementos
     Public File_OpenWith_In1Value As String
     Public File_OpenWith_In2Value As String
     Public File_OpenWith_In3Value As String
+
+    Sub SaveRegistry()
+        Try
+            Dim RutaBaseDatos As String = "SOFTWARE\\CRZ Labs\\DevToolMenu\\Registry"
+            Dim BaseDataRegeditWriter As RegistryKey
+            BaseDataRegeditWriter = Registry.CurrentUser.OpenSubKey(RutaBaseDatos, True)
+            If BaseDataRegeditWriter Is Nothing Then
+                Registry.CurrentUser.CreateSubKey(RutaBaseDatos)
+                BaseDataRegeditWriter = Registry.CurrentUser.OpenSubKey(RutaBaseDatos, True)
+            End If
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_GetLocationKey", Directorios_DentroDeCarpeta_GetLocationKey, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_GetLocationName", Directorios_DentroDeCarpeta_GetLocationName, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_GetLocationIcon", Directorios_DentroDeCarpeta_GetLocationIcon, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_GetLocationValue", Directorios_DentroDeCarpeta_GetLocationValue, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_GetLocationKey", Directorios_SeleccionandoCarpeta_GetLocationKey, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_GetLocationName", Directorios_SeleccionandoCarpeta_GetLocationName, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_GetLocationIcon", Directorios_SeleccionandoCarpeta_GetLocationIcon, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_GetLocationValue", Directorios_SeleccionandoCarpeta_GetLocationValue, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Archivos_GetLocationKey", Archivos_GetLocationKey, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Archivos_GetLocationName", Archivos_GetLocationName, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Archivos_GetLocationIcon", Archivos_GetLocationIcon, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Archivos_GetLocationValue", Archivos_GetLocationValue, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Archivos_GetLocationKey", Archivos_GetLocationKey, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Archivos_GetLocationName", Archivos_GetLocationName, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Archivos_GetLocationIcon", Archivos_GetLocationIcon, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Archivos_GetLocationValue", Archivos_GetLocationValue, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenInKey", Directorios_DentroDeCarpeta_OpenInKey, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenInName", Directorios_DentroDeCarpeta_OpenInName, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenInIcon", Directorios_DentroDeCarpeta_OpenInIcon, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenInCascade1Name", Directorios_DentroDeCarpeta_OpenInCascade1Name, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenInCascade1Icon", Directorios_DentroDeCarpeta_OpenInCascade1Icon, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenInCascade1Value", Directorios_DentroDeCarpeta_OpenInCascade1Value, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenInCascade2Name", Directorios_DentroDeCarpeta_OpenInCascade2Name, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenInCascade2Icon", Directorios_DentroDeCarpeta_OpenInCascade2Icon, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenInCascade2Value", Directorios_DentroDeCarpeta_OpenInCascade2Value, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenInCascade3Name", Directorios_DentroDeCarpeta_OpenInCascade3Name, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenInCascade3Icon", Directorios_DentroDeCarpeta_OpenInCascade3Icon, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenInCascade3Value", Directorios_DentroDeCarpeta_OpenInCascade3Value, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenInKey", Directorios_SeleccionandoCarpeta_OpenInKey, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenInName", Directorios_SeleccionandoCarpeta_OpenInName, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenInIcon", Directorios_SeleccionandoCarpeta_OpenInIcon, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenInCascade1Name", Directorios_SeleccionandoCarpeta_OpenInCascade1Name, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenInCascade1Icon", Directorios_SeleccionandoCarpeta_OpenInCascade1Icon, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenInCascade1Value", Directorios_SeleccionandoCarpeta_OpenInCascade1Value, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenInCascade2Name", Directorios_SeleccionandoCarpeta_OpenInCascade2Name, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenInCascade2Icon", Directorios_SeleccionandoCarpeta_OpenInCascade2Icon, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenInCascade2Value", Directorios_SeleccionandoCarpeta_OpenInCascade2Value, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenInCascade3Name", Directorios_SeleccionandoCarpeta_OpenInCascade3Name, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenInCascade3Icon", Directorios_SeleccionandoCarpeta_OpenInCascade3Icon, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenInCascade3Value", Directorios_SeleccionandoCarpeta_OpenInCascade3Value, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Archivos_OpenInKey", Archivos_OpenInKey, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Archivos_OpenInName", Archivos_OpenInName, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Archivos_OpenInIcon", Archivos_OpenInIcon, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Archivos_OpenInCascade1Name", Archivos_OpenInCascade1Name, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Archivos_OpenInCascade1Icon", Archivos_OpenInCascade1Icon, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Archivos_OpenInCascade1Value", Archivos_OpenInCascade1Value, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Archivos_OpenInCascade2Name", Archivos_OpenInCascade2Name, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Archivos_OpenInCascade2Icon", Archivos_OpenInCascade2Icon, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Archivos_OpenInCascade2Value", Archivos_OpenInCascade2Value, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Archivos_OpenInCascade3Name", Archivos_OpenInCascade3Name, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Archivos_OpenInCascade3Icon", Archivos_OpenInCascade3Icon, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Archivos_OpenInCascade3Value", Archivos_OpenInCascade3Value, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Key", Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Key, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Name", Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Name, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Icon", Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Icon, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Value", Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Value, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Key", Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Key, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Name", Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Name, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Icon", Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Icon, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Value", Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Value, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Key", Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Key, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Name", Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Name, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Icon", Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Icon, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Value", Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Value, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Key", Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Key, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Name", Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Name, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Icon", Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Icon, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Value", Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Value, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Key", Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Key, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Name", Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Name, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Icon", Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Icon, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Value", Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Value, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Key", Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Key, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Name", Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Name, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Icon", Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Icon, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Value", Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Value, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Archivos_OpenIn_Otro1Key", Archivos_OpenIn_Otro1Key, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Archivos_OpenIn_Otro1Name", Archivos_OpenIn_Otro1Name, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Archivos_OpenIn_Otro1Icon", Archivos_OpenIn_Otro1Icon, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Archivos_OpenIn_Otro1Value", Archivos_OpenIn_Otro1Value, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Archivos_OpenIn_Otro2Key", Archivos_OpenIn_Otro2Key, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Archivos_OpenIn_Otro2Name", Archivos_OpenIn_Otro2Name, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Archivos_OpenIn_Otro2Icon", Archivos_OpenIn_Otro2Icon, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Archivos_OpenIn_Otro2Value", Archivos_OpenIn_Otro2Value, RegistryValueKind.String)
+
+            BaseDataRegeditWriter.SetValue("Archivos_OpenIn_Otro3Key", Archivos_OpenIn_Otro3Key, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Archivos_OpenIn_Otro3Name", Archivos_OpenIn_Otro3Name, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Archivos_OpenIn_Otro3Icon", Archivos_OpenIn_Otro3Icon, RegistryValueKind.String)
+            BaseDataRegeditWriter.SetValue("Archivos_OpenIn_Otro3Value", Archivos_OpenIn_Otro3Value, RegistryValueKind.String)
+
+            LoadRegistry()
+        Catch ex As Exception
+            'MsgBox("Error al guardar el estado." & vbCrLf & ex.Message)
+            AddToLog("SaveRegistry", "Error: " & ex.Message, True)
+        End Try
+    End Sub
+    Sub LoadRegistry()
+        Try
+            Dim RutaBaseDatos As String = "SOFTWARE\\CRZ Labs\\DevToolMenu\\Registry"
+            Dim BaseDataRegeditReader As RegistryKey
+            BaseDataRegeditReader = Registry.CurrentUser.OpenSubKey(RutaBaseDatos, True)
+            If BaseDataRegeditReader Is Nothing Then
+                Registry.CurrentUser.CreateSubKey(RutaBaseDatos)
+                BaseDataRegeditReader = Registry.CurrentUser.OpenSubKey(RutaBaseDatos, True)
+                SaveRegistry()
+            End If
+            Directorios_DentroDeCarpeta_GetLocationKey = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_GetLocationKey")
+            Directorios_DentroDeCarpeta_GetLocationName = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_GetLocationName")
+            Directorios_DentroDeCarpeta_GetLocationIcon = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_GetLocationIcon")
+            Directorios_DentroDeCarpeta_GetLocationValue = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_GetLocationValue")
+
+            Directorios_SeleccionandoCarpeta_GetLocationKey = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_GetLocationKey")
+            Directorios_SeleccionandoCarpeta_GetLocationName = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_GetLocationName")
+            Directorios_SeleccionandoCarpeta_GetLocationIcon = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_GetLocationIcon")
+            Directorios_SeleccionandoCarpeta_GetLocationValue = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_GetLocationValue")
+
+            Archivos_GetLocationKey = BaseDataRegeditReader.GetValue("Archivos_GetLocationKey")
+            Archivos_GetLocationName = BaseDataRegeditReader.GetValue("Archivos_GetLocationName")
+            Archivos_GetLocationIcon = BaseDataRegeditReader.GetValue("Archivos_GetLocationIcon")
+            Archivos_GetLocationValue = BaseDataRegeditReader.GetValue("Archivos_GetLocationValue")
+
+            Archivos_GetLocationKey = BaseDataRegeditReader.GetValue("Archivos_GetLocationKey")
+            Archivos_GetLocationName = BaseDataRegeditReader.GetValue("Archivos_GetLocationName")
+            Archivos_GetLocationIcon = BaseDataRegeditReader.GetValue("Archivos_GetLocationIcon")
+            Archivos_GetLocationValue = BaseDataRegeditReader.GetValue("Archivos_GetLocationValue")
+
+            Directorios_DentroDeCarpeta_OpenInKey = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenInKey")
+            Directorios_DentroDeCarpeta_OpenInName = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenInName")
+            Directorios_DentroDeCarpeta_OpenInIcon = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenInIcon")
+
+            Directorios_DentroDeCarpeta_OpenInCascade1Name = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenInCascade1Name")
+            Directorios_DentroDeCarpeta_OpenInCascade1Icon = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenInCascade1Icon")
+            Directorios_DentroDeCarpeta_OpenInCascade1Value = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenInCascade1Value")
+
+            Directorios_DentroDeCarpeta_OpenInCascade2Name = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenInCascade2Name")
+            Directorios_DentroDeCarpeta_OpenInCascade2Icon = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenInCascade2Icon")
+            Directorios_DentroDeCarpeta_OpenInCascade2Value = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenInCascade2Value")
+
+            Directorios_DentroDeCarpeta_OpenInCascade3Name = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenInCascade3Name")
+            Directorios_DentroDeCarpeta_OpenInCascade3Icon = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenInCascade3Icon")
+            Directorios_DentroDeCarpeta_OpenInCascade3Value = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenInCascade3Value")
+
+            Directorios_SeleccionandoCarpeta_OpenInKey = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenInKey")
+            Directorios_SeleccionandoCarpeta_OpenInName = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenInName")
+            Directorios_SeleccionandoCarpeta_OpenInIcon = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenInIcon")
+
+            Directorios_SeleccionandoCarpeta_OpenInCascade1Name = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenInCascade1Name")
+            Directorios_SeleccionandoCarpeta_OpenInCascade1Icon = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenInCascade1Icon")
+            Directorios_SeleccionandoCarpeta_OpenInCascade1Value = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenInCascade1Value")
+
+            Directorios_SeleccionandoCarpeta_OpenInCascade2Name = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenInCascade2Name")
+            Directorios_SeleccionandoCarpeta_OpenInCascade2Icon = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenInCascade2Icon")
+            Directorios_SeleccionandoCarpeta_OpenInCascade2Value = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenInCascade2Value")
+
+            Directorios_SeleccionandoCarpeta_OpenInCascade3Name = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenInCascade3Name")
+            Directorios_SeleccionandoCarpeta_OpenInCascade3Icon = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenInCascade3Icon")
+            Directorios_SeleccionandoCarpeta_OpenInCascade3Value = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenInCascade3Value")
+
+            Archivos_OpenInKey = BaseDataRegeditReader.GetValue("Archivos_OpenInKey")
+            Archivos_OpenInName = BaseDataRegeditReader.GetValue("Archivos_OpenInName")
+            Archivos_OpenInIcon = BaseDataRegeditReader.GetValue("Archivos_OpenInIcon")
+
+            Archivos_OpenInCascade1Name = BaseDataRegeditReader.GetValue("Archivos_OpenInCascade1Name")
+            Archivos_OpenInCascade1Icon = BaseDataRegeditReader.GetValue("Archivos_OpenInCascade1Icon")
+            Archivos_OpenInCascade1Value = BaseDataRegeditReader.GetValue("Archivos_OpenInCascade1Value")
+
+            Archivos_OpenInCascade2Name = BaseDataRegeditReader.GetValue("Archivos_OpenInCascade2Name")
+            Archivos_OpenInCascade2Icon = BaseDataRegeditReader.GetValue("Archivos_OpenInCascade2Icon")
+            Archivos_OpenInCascade2Value = BaseDataRegeditReader.GetValue("Archivos_OpenInCascade2Value")
+
+            Archivos_OpenInCascade3Name = BaseDataRegeditReader.GetValue("Archivos_OpenInCascade3Name")
+            Archivos_OpenInCascade3Icon = BaseDataRegeditReader.GetValue("Archivos_OpenInCascade3Icon")
+            Archivos_OpenInCascade3Value = BaseDataRegeditReader.GetValue("Archivos_OpenInCascade3Value")
+
+            Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Key = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Key")
+            Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Name = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Name")
+            Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Icon = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Icon")
+            Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Value = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro1Value")
+
+            Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Key = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Key")
+            Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Name = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Name")
+            Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Icon = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Icon")
+            Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Value = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro2Value")
+
+            Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Key = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Key")
+            Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Name = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Name")
+            Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Icon = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Icon")
+            Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Value = BaseDataRegeditReader.GetValue("Directorios_DentroDeCarpeta_OpenIn_Otros_Otro3Value")
+
+            Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Key = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Key")
+            Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Name = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Name")
+            Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Icon = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Icon")
+            Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Value = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro1Value")
+
+            Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Key = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Key")
+            Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Name = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Name")
+            Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Icon = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Icon")
+            Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Value = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro2Value")
+
+            Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Key = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Key")
+            Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Name = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Name")
+            Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Icon = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Icon")
+            Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Value = BaseDataRegeditReader.GetValue("Directorios_SeleccionandoCarpeta_OpenIn_Otros_Otro3Value")
+
+            Archivos_OpenIn_Otro1Key = BaseDataRegeditReader.GetValue("Archivos_OpenIn_Otro1Key")
+            Archivos_OpenIn_Otro1Name = BaseDataRegeditReader.GetValue("Archivos_OpenIn_Otro1Name")
+            Archivos_OpenIn_Otro1Icon = BaseDataRegeditReader.GetValue("Archivos_OpenIn_Otro1Icon")
+            Archivos_OpenIn_Otro1Value = BaseDataRegeditReader.GetValue("Archivos_OpenIn_Otro1Value")
+
+            Archivos_OpenIn_Otro2Key = BaseDataRegeditReader.GetValue("Archivos_OpenIn_Otro2Key")
+            Archivos_OpenIn_Otro2Name = BaseDataRegeditReader.GetValue("Archivos_OpenIn_Otro2Name")
+            Archivos_OpenIn_Otro2Icon = BaseDataRegeditReader.GetValue("Archivos_OpenIn_Otro2Icon")
+            Archivos_OpenIn_Otro2Value = BaseDataRegeditReader.GetValue("Archivos_OpenIn_Otro2Value")
+
+            Archivos_OpenIn_Otro3Key = BaseDataRegeditReader.GetValue("Archivos_OpenIn_Otro3Key")
+            Archivos_OpenIn_Otro3Name = BaseDataRegeditReader.GetValue("Archivos_OpenIn_Otro3Name")
+            Archivos_OpenIn_Otro3Icon = BaseDataRegeditReader.GetValue("Archivos_OpenIn_Otro3Icon")
+            Archivos_OpenIn_Otro3Value = BaseDataRegeditReader.GetValue("Archivos_OpenIn_Otro3Value")
+
+        Catch ex As Exception
+            'MsgBox("Error al guardar el estado." & vbCrLf & ex.Message)
+            AddToLog("LoadRegistry", "Error: " & ex.Message, True)
+        End Try
+    End Sub
 
     Sub SaveDB()
         Try

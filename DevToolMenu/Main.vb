@@ -12,6 +12,7 @@
         Notifyer.BalloonTipText = "Welcome, " & Environment.UserName
         Notifyer.Text = My.Application.Info.AssemblyName
         LoadDB()
+        LoadRegistry()
     End Sub
 
     Sub CommonStart()
@@ -50,6 +51,7 @@
 
     Private Sub Main_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         SaveDB()
+        SaveRegistry()
     End Sub
 
     Private Sub btnMenuEditor_Click(sender As Object, e As EventArgs) Handles tb_btn_MenuEditor.Click

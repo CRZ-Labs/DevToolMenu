@@ -64,6 +64,7 @@ Partial Class MenuEditor
         Me.Label6 = New System.Windows.Forms.Label()
         Me.TextBox5 = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -93,7 +94,7 @@ Partial Class MenuEditor
         '
         'btn_Create
         '
-        Me.btn_Create.Location = New System.Drawing.Point(267, 169)
+        Me.btn_Create.Location = New System.Drawing.Point(267, 203)
         Me.btn_Create.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_Create.Name = "btn_Create"
         Me.btn_Create.Size = New System.Drawing.Size(100, 28)
@@ -103,7 +104,7 @@ Partial Class MenuEditor
         '
         'btn_Delete
         '
-        Me.btn_Delete.Location = New System.Drawing.Point(267, 205)
+        Me.btn_Delete.Location = New System.Drawing.Point(267, 239)
         Me.btn_Delete.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_Delete.Name = "btn_Delete"
         Me.btn_Delete.Size = New System.Drawing.Size(100, 28)
@@ -461,17 +462,29 @@ Partial Class MenuEditor
         Me.Label5.TabIndex = 9
         Me.Label5.Text = "Llave: "
         '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(267, 158)
+        Me.Button3.Margin = New System.Windows.Forms.Padding(4)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(100, 28)
+        Me.Button3.TabIndex = 5
+        Me.Button3.Text = "Remove"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
         'MenuEditor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1067, 554)
+        Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.btn_Save)
         Me.Controls.Add(Me.btn_Delete)
         Me.Controls.Add(Me.btn_Create)
         Me.Controls.Add(Me.btn_Edit)
         Me.Controls.Add(Me.lb_Menus)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "MenuEditor"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -527,4 +540,5 @@ Partial Class MenuEditor
     Friend WithEvents TextBox5 As TextBox
     Friend WithEvents Label5 As Label
     Friend WithEvents Button2 As Button
+    Friend WithEvents Button3 As Button
 End Class

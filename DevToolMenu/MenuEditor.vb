@@ -1,5 +1,4 @@
 ﻿Imports Microsoft.Win32
-
 Public Class MenuEditor
     Dim MenusArray As New ArrayList
 
@@ -85,6 +84,7 @@ Public Class MenuEditor
             If keyType = "Normal" Then
                 TabPage1.Enabled = True
                 TabPage2.Enabled = False
+                TabControl1.SelectTab(0)
                 TextBox1.Text = GetIniValue("BASICS", "KEY", filePath)
                 TextBox2.Text = GetIniValue("BASICS", "NAME", filePath)
                 TextBox3.Text = GetIniValue("BASICS", "ICON", filePath)
@@ -92,6 +92,7 @@ Public Class MenuEditor
             ElseIf keyType = "Cascade" Then
                 TabPage1.Enabled = False
                 TabPage2.Enabled = True
+                TabControl1.SelectTab(1)
                 TextBox5.Text = GetIniValue("BASICS", "KEY", filePath)
                 TextBox6.Text = GetIniValue("BASICS", "NAME", filePath)
                 TextBox7.Text = GetIniValue("BASICS", "ICON", filePath)
@@ -278,6 +279,27 @@ Public Class MenuEditor
         End Try
     End Sub
 
+    Sub MenuEditorRegeditRemover(ByVal filePath As String)
+        Try
+            Dim ruta As String = GetIniValue("BASICS", "KEY", filePath)
+            Dim keyName As String = ruta
+            keyName = keyName.Remove(0, keyName.LastIndexOf("\") + 1)
+
+            ruta = ruta.Replace("\\" & keyName, Nothing)
+            ruta = ruta.Replace("\" & keyName, Nothing)
+
+            Dim RegeditWriter1 As RegistryKey
+            RegeditWriter1 = Registry.CurrentUser.OpenSubKey(ruta, True)
+            If RegeditWriter1 Is Nothing Then
+                Exit Sub
+            End If
+            RegeditWriter1.DeleteSubKeyTree(keyName)
+        Catch ex As Exception
+            'MsgBox("Error al crear la llave." & vbCrLf & ex.Message)
+            AddToLog("MenuEditorRegeditNormalRemover", "Error: " & ex.Message, True)
+        End Try
+    End Sub
+
 #Region "Controles"
     Private Sub btn_Edit_Click(sender As Object, e As EventArgs) Handles btn_Edit.Click
         ReadIniFile(lb_Menus.SelectedItem)
@@ -289,6 +311,11 @@ Public Class MenuEditor
             SaveIniMenuCascade(DIRCommons & "\Menus\" & lb_Menus.SelectedItem & ".ini")
         End If
         'cerrar el archivo
+    End Sub
+    Private Sub btnRemove_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        If MessageBox.Show("¿Seguro quieres eliminar la llave '" & lb_Menus.SelectedItem & "'", "Eliminar registro", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+            MenuEditorRegeditRemover(DIRCommons & "\Menus\" & lb_Menus.SelectedItem & ".ini")
+        End If
     End Sub
 
     Private Sub btn_Create_Click(sender As Object, e As EventArgs) Handles btn_Create.Click
